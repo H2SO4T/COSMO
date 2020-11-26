@@ -1,4 +1,4 @@
-# JacocoInstrumenter
+# COSMO
 
 [![Ubuntu Build Status](https://github.com/H2SO4T/JacocoInstrumenter/workflows/Ubuntu/badge.svg)](https://github.com/H2SO4T/JacocoInstrumenter/actions?query=workflow%3AUbuntu)
 [![Windows Build Status](https://github.com/H2SO4T/JacocoInstrumenter/workflows/Windows/badge.svg)](https://github.com/H2SO4T/JacocoInstrumenter/actions?query=workflow%3AWindows)
@@ -8,17 +8,13 @@
 
 
 
-JacocoInstrumenter is a tool that allows you to automatically instrument a gradle-based application and to generate code coverage reports.
+COSMO is a tool that allows you to automatically instrument a gradle-based application and to generate code coverage reports.
 Code coverage is a measure useful to describe the degree to which the source code of a program is executed when a particular test suite runs.
-The tool demonstrated to work on a multitude of github projects:
-
-- [AntennaPod](https://github.com/AntennaPod/AntennaPod)
-- [Talalarmo](https://github.com/trikita/talalarmo)
 
 ## Works with
 
 - ```Java projects```
-- ```Kotlin projects``` (work in progress)
+- ```Kotlin projects```
 
 # Requirements
 
@@ -29,7 +25,7 @@ The tool demonstrated to work on a multitude of github projects:
 The first thing to do is to get a local copy of this repository, so open up a terminal in the directory where you want
 to save the project and clone the repository:
 
-``` git clone https://github.com/H2SO4T/JacocoInstrumenter.git```
+``` https://github.com/H2SO4T/COSMO.git```
 
 Now create a virtualenv, and run ```pip3 install -r requirements.txt```. Now you are able to run your instrumentation.
 
@@ -37,7 +33,7 @@ Now create a virtualenv, and run ```pip3 install -r requirements.txt```. Now you
 
 ## GUI
 
-In order to run JacocoInstrumenter using the GUI, launch the command ```python3 gui.py```.
+In order to run COSMO using the GUI, launch the command ```python3 gui.py```.
 
 A little window will appear:
 
@@ -52,8 +48,8 @@ Otherwise the program will print in console an error indicating the problem occu
  
 ## CLI 
 
-In order to run JacocoInstrumenter using the CLI, launch the command ```python3 cli.py <APP_PATH>```.
-JacocoInstrumenter will eventually notify to you possible problems. 
+In order to run COSMO using the CLI, launch the command ```python3 cli.py <APP_PATH>```.
+COSMO will eventually notify to you possible problems. 
 
 # What Happens to your project?
 
@@ -77,7 +73,7 @@ the coverage results when we are done with the testing.
 
 We need a way to tell the app when the testing phase is over and the results should be
 generated. For this purpose, we can use a
-[broadcast receiver](https://github.com/H2SO4T/JacocoInstrumenter/blob/master/templates/EndCoverageBroadcast.prep)
+[broadcast receiver](https://github.com/H2SO4T/COSMO/blob/master/templates/EndCoverageBroadcast.prep)
 that will create the file with the coverage data when receiving `intent.END_COVERAGE`
 broadcast.
 
