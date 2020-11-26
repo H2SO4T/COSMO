@@ -1,0 +1,78 @@
+name: Windows
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ 3.5, 3.6, 3.7, 3.8 ]
+        os: [ windows-latest ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - name: Install NDK
+        shell: cmd
+        run: |
+          "%ANDROID_HOME%\tools\bin\sdkmanager.bat" "ndk;20.0.5594570"
+
+      - name: Install dex2jar
+        shell: powershell
+        run: |
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+
+      - name: Checkout test repository (AntennaPod)
+        uses: actions/checkout@v2
+        with:
+          repository: AntennaPod/AntennaPod
+          path: apps/AntennaPod
+
+      - name: Build original test apps
+        run: |
+          apps\AntennaPod\gradlew.bat assembleDebug -p apps\AntennaPod
+
+      - name: Run apk instrumentation on test apps
+        shell: powershell
+        run: |
+          $env:PATH="$($env:PATH);$($env:ANDROID_HOME)\build-tools\30.0.2;$($env:GITHUB_WORKSPACE)\dex2jar-2.0"
+          python cli.py apps\AntennaPod\app\build\outputs\apk\free\debug\app-free-debug.apk
+
+      - name: Run source instrumentation on test apps
+        run: |
+          python cli.py apps\AntennaPod
+
+      - name: Build source instrumented test apps
+        run: |
+          apps\AntennaPod\gradlew clean assembleDebug -p apps\AntennaPod
+
+      - name: Upload instrumented apk artifacts (from apk)
+        uses: actions/upload-artifact@v2
+        with:
+          name: Instrumentation from apk (Python ${{ matrix.python-version }})
+          path: output_apks/*.apk
+
+      - name: Upload instrumented apk artifacts (from source)
+        uses: actions/upload-artifact@v2
+        with:
+          name: Instrumentation from source (Python ${{ matrix.python-version }})
+          path: |
+            apps/AntennaPod/app/build/outputs/apk/free/debug/app-free-debug.apk
