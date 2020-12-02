@@ -1,10 +1,10 @@
 # COSMO
 
-[![Ubuntu Build Status](https://github.com/H2SO4T/JacocoInstrumenter/workflows/Ubuntu/badge.svg)](https://github.com/H2SO4T/JacocoInstrumenter/actions?query=workflow%3AUbuntu)
-[![Windows Build Status](https://github.com/H2SO4T/JacocoInstrumenter/workflows/Windows/badge.svg)](https://github.com/H2SO4T/JacocoInstrumenter/actions?query=workflow%3AWindows)
-[![MacOS Build Status](https://github.com/H2SO4T/JacocoInstrumenter/workflows/MacOS/badge.svg)](https://github.com/H2SO4T/JacocoInstrumenter/actions?query=workflow%3AMacOS)
+[![Ubuntu Build Status](https://github.com/H2SO4T/COSMO/workflows/Ubuntu/badge.svg)](https://github.com/H2SO4T/COSMO/actions?query=workflow%3AUbuntu)
+[![Windows Build Status](https://github.com/H2SO4T/COSMO/workflows/Windows/badge.svg)](https://github.com/H2SO4T/COSMO/actions?query=workflow%3AWindows)
+[![MacOS Build Status](https://github.com/H2SO4T/COSMO/workflows/MacOS/badge.svg)](https://github.com/H2SO4T/COSMO/actions?query=workflow%3AMacOS)
 [![Python Version](https://img.shields.io/badge/Python-3.5%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/H2SO4T/JacocoInstrumenter/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/H2SO4T/COSMO/blob/master/LICENSE)
 
 
 
@@ -18,7 +18,14 @@ Code coverage is a measure useful to describe the degree to which the source cod
 
 # Requirements
 
-- ```Python 3```
+| Python version     | Ubuntu                   | Windows                  | MacOS                    |
+|:------------------:|:------------------------:|:------------------------:|:------------------------:|
+| **3.4** or lower   | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
+| **3.5**            | :heavy_check_mark:       | :heavy_check_mark:       | :heavy_check_mark:       |
+| **3.6**            | :heavy_check_mark:       | :heavy_check_mark:       | :heavy_check_mark:       |
+| **3.7**            | :heavy_check_mark:       | :heavy_check_mark:       | :heavy_check_mark:       |
+| **3.8**            | :heavy_check_mark:       | :heavy_check_mark:       | :heavy_check_mark:       |
+| **3.9** or greater | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: |
 
 # Installation
 
