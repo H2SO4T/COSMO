@@ -1,0 +1,2840 @@
+name: Build apks from source
+
+on:
+  workflow_dispatch:
+
+jobs:
+  batch-1:
+    name: Build batch 1
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jitsi/jitsi-meet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/android-hacker/VirtualXposed
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pockethub/PocketHub
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TeamNewPipe/NewPipe
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/inorichi/tachiyomi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dolphin-emu/dolphin
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/termux/termux-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hrydgard/ppsspp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/FreeRDP/FreeRDP
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lesspass/lesspass
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Anuken/Mindustry
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/iNPUTmice/Conversations
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tutao/tutanota
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/iSoron/uhabits
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rovo89/XposedInstaller
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/owncloud/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/supertuxkart/stk-code
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TeamAmaze/AmazeFileManager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AntennaPod/AntennaPod
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/moezbhatti/qksms
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jonan/ForkHub
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/M66B/NetGuard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/qii/weiciyuan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ankidroid/Anki-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cSploit/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kabouzeid/Phonograph
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AdAway/AdAway
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andOTP/andOTP
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Calendar
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TwidereProject/Twidere-Android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 1
+          path: apks/
+
+  batch-2:
+    name: Build batch 2
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rmtheis/android-ocr
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/federicoiosue/Omni-Notes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hidroh/materialistic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yeriomin/YalpStore
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ikarus23/MifareClassicTool
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nextcloud/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/redsolution/xabber-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ukanth/afwall
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CypherpunkArmory/UserLAnd
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mozilla-mobile/focus-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/anthonycr/Lightning-Browser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/orgzly/orgzly-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/blokadaorg/blokada
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fossasia/pslab-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Neamar/KISS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jberkel/sms-backup-plus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/android-password-store/Android-Password-Store
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/westnordost/StreetComplete
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/google/samba-documents-provider
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ProtonVPN/android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phhusson/Superuser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/labexp/osmtracker-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mpcjanssen/simpletask-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/servalproject/batphone
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/haiwen/seadroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/omerjerk/RemoteDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Cleveroad/PlayWidget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wiglenet/wigle-wifi-wardriving
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/manuelsc/Lunary-Ethereum-Wallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daneren2005/Subsonic
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 2
+          path: apks/
+
+  batch-3:
+    name: Build batch 3
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/j4velin/Pedometer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ccrama/Slide
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bpellin/keepassdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RetroShare/RetroShare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mattermost/mattermost-mobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/moonlight-stream/moonlight-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/slapperwan/gh4a
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/M66B/FairEmail
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/QuantumBadger/RedReader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/falnatsheh/MarkdownView
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsantner/markor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/M66B/XPrivacyLua
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AntonioRedondo/AnotherMonitor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/beemdevelopment/Aegis
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/codebutler/farebot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/emmaguy/clean-status-bar
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/erickok/transdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/uberspot/2048-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tuskyapp/Tusky
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/stealthcopter/AndroidNetworkTools
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RocketChat/Rocket.Chat.Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/matburt/mobileorg-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ushahidi/SMSSync
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/heruoxin/Clip-Stack
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OpenLauncherTeam/openlauncher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pires/android-obd-reader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/google/ringdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/00-Evan/shattered-pixel-dungeon
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/freeotp/freeotp-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ikew0ng/Dribbo
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 3
+          path: apks/
+
+  batch-4:
+    name: Build batch 4
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fossasia/badge-magic-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fossasia/neurolab-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mendhak/gpslogger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wikimedia/apps-android-wikipedia
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/javiersantos/MLManager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/project-travel-mate/Travel-Mate
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VREMSoftwareDevelopment/WifiAnalyzer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/reicast/reicast-emulator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Etar-Group/Etar-Calendar
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Kunzisoft/KeePassDX
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/osfans/trime
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Telegram-FOSS-Team/Telegram-FOSS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ctodobom/OpenNoteScanner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dmfs/opentasks
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AChep/AcDisplay
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/FredJul/Flym
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nikita36078/J2ME-Loader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vanilla-music/vanilla
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/chandevel/Clover
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/oliexdev/openScale
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/WangDaYeeeeee/Mysplash
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/grote/Transportr
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zhanghai/MaterialFiles
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/meefik/busybox
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mozilla/MozStumbler
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/commons-app/apps-android-commons
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/barbeau/gpstest
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/demantz/RFAnalyzer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/abarisain/dmix
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hypeapps/Endoscope
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 4
+          path: apks/
+
+  batch-5:
+    name: Build batch 5
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/deltachat/deltachat-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/martykan/forecastie
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Aefyr/SAI
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/blanyal/Remindly
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AndlyticsProject/andlytics
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/scummvm/scummvm
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/PassAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kontalk/androidclient
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ppareit/swiftp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dkrivoruchko/ScreenStream
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-File-Manager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/SurvivalManual
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/manmal/hn-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/romannurik/dashclock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/openfoodfacts/openfoodfacts-androidapp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/PeterCxy/Shelter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nextcloud/news-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/simple-last-fm-scrobbler/sls
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Music-Player
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/scoute-dich/browser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/NightWhistler/PageTurner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/markusfisch/ShaderEditor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kollerlukas/Camera-Roll-Android-App
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vector-im/riotx-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fr3ts0n/AndrOBD
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Camera
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LibreShift/red-moon
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rfc2822/GfxTablet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Swati4star/Images-to-PDF
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jensstein/oandbackup
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 5
+          path: apks/
+
+  batch-6:
+    name: Build batch 6
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/connectbot/connectbot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/julian-klode/dns66
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fossasia/open-event-attendee-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vector-im/riot-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Gallery
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AnySoftKeyboard/AnySoftKeyboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/open-keychain/open-keychain
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fossasia/open-event-organizer-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/syncthing/syncthing-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/duckduckgo/Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dkim0419/SoundRecorder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/standardnotes/mobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/genonbeta/TrebleShot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/traccar/traccar-client-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/openhab/openhab-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ubergeek42/weechat-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/stefan-niedermann/nextcloud-notes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sky-map-team/stardroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/enricocid/Music-Player-GO
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/walleth/walleth
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/8enet/AppOpsX
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xbmc/Kore
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MirakelX/mirakel-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/renyuneyun/Easer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AllanWang/Frost-for-Facebook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/spacecowboy/NotePad
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/chrisboyle/sgtpuzzles
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sismics/reader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/WebBluetoothCG/ble-test-peripheral-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/thermatk/FastHub-Libre
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 6
+          path: apks/
+
+  batch-7:
+    name: Build batch 7
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/eolwral/OSMonitor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/trikita/slide
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pocmo/Yaaic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/afollestad/nock-nock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/navit-gps/navit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sheimi/SGit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fython/Blackbulb
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wallabag/android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/philliphsu/ClockPlus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Notes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/indywidualny/FaceSlim
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cernekee/ics-openconnect
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/maxpower47/PinDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/intrications/intent-intercept
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/acomminos/Plumble
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/segler-alex/RadioDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Contacts
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gotify/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/niqdev/ipcam-view
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Nilhcem/hosts-editor-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/moneymanagerex/android-money-manager-ex
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MCMrARM/revolution-irc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/d4rken/reddit-android-appstore
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/IPFSDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mtotschnig/MyExpenses
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/liato/android-bankdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mmazzarolo/breathly-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/plafue/writeily-pro
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Calculator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rkkr/simple-keyboard
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 7
+          path: apks/
+
+  batch-8:
+    name: Build batch 8
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AdrienPoupa/VinylMusicPlayer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adolfintel/OpenPods
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/stefan-niedermann/nextcloud-deck
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/raulhaag/MiMangaNu
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/velazcod/Tinfoil-Facebook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/theksmith/CarBusInterface
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jcarolus/android-chess
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/y20k/transistor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/f2prateek/Device-Frame-Generator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AEFeinstein/mtg-familiar
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AndBible/and-bible
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wolpi/prim-ftpd
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Phantast/smartnavi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/guardianproject/ObscuraCam
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/premnirmal/StockTicker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Draw
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andstatus/andstatus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nextcloud/talk-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bilde2910/Hauk
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mkulesh/microMathematics
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zenorogue/hyperrogue
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/eidottermihi/rpicheck
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DaylightingSociety/WhereAreTheEyes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/trikita/talalarmo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/video-transcoder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tvbarthel/CameraColorPicker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pluscubed/matlog
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fennifith/Alarmio
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devgianlu/Aria2App
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/deep-gaurav/MusicPiped
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 8
+          path: apks/
+
+  batch-9:
+    name: Build batch 9
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/martinmarinov/rtl_tcp_andro-
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sriharshaarangi/BatteryChargeLimit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-CLock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MatteCarra/AccA
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Dar9586/NClientV2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dslul/openboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sschueller/peertube-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rootkiwi/an2linuxclient
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/naman14/S-Tools
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cyclestreets/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsantner/memetastic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sterrenburg/flutterhole
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/javiersantos/WhatsAppBetaUpdater
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jonasbleyl/Recurrence
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yaa110/Piclice
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wbaumann/SmartReceiptsLibrary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nutritionfactsorg/daily-dozen-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/clementine-player/Android-Remote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nkanaev/bubble
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/authpass/authpass
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/qqq3/good-weather
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wizmer/syncorg
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/darshanparajuli/LogcatReader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mattermost/mattermost-android-classic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/markusfisch/BinaryEye
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hanjoongcho/aaf-easydiary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Arjun-sna/android-permission-checker-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/futurice/meeting-room-tablet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/termux/termux-boot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Kaljurand/K6nele
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 9
+          path: apks/
+
+  batch-10:
+    name: Build batch 10
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ogarcia/opensudoku
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/crazyhitty/Munch
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dozingcat/Vector-Pinball
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/veniosg/Dir
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimonMarquis/Android-SecretCodes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EtchDroid/EtchDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Yubico/yubioath-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Rohithkvsp/Form-N-Fun
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/juankysoriano/Zen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/junjunguo/PocketMaps
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Flashlight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AdguardTeam/ContentBlocker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TachibanaGeneralLaboratories/download-navi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TobiasBielefeld/Simple-Solitaire
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nv95/OpenManga
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/flyingrub/SpeedMeter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-App-Launcher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/BenoitDuffez/AndroidCupsPrint
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/loyalty-card-locker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/reloZid/android-anuto
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gateship-one/odyssey
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MaxFour/Music-Player
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xyzz/openmw-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aaronjwood/PortAuthority
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AndreAle94/moneywallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tasomaniac/OpenLinkWith
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/IngoZenz/personaldnsfilter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/artetxem/mitzuli
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Nutomic/ensichat
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/BramBonne/privacypolice
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 10
+          path: apks/
+
+  batch-11:
+    name: Build batch 11
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kamgurgul/cpu-info
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rignaneseleo/SlimSocial-for-Facebook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Marlinski/Rumble
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DF1E/SimpleExplorer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ccomeaux/boardgamegeek4android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bottiger/SoundWaves
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/PuffOpenSource/Puff-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/etesync/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LonamiWebs/Klooni1010
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GiorgioRegni/Binaural-Beats
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tejado/Authorizer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ZeusLN/zeus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/otakuhqz/ZimLX
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/flyve-mdm/android-mdm-agent
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/farmerbb/Notepad
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/itds-consulting/android-silent-ping-sms
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/oversecio/oversec
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yaa110/Memento
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bfabiszewski/ulogger-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/greenaddress/abcore
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/geopaparazzi/geopaparazzi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/metinkale38/prayer-times-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimonMarquis/Android-PreferencesManager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/opentelecoms-org/lumicall
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/diary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoff99/ToxAndroidRefImpl
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hypeapps/episodie
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/posm/OpenMapKitAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zagaberoo/diode
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adrianchifor/Swiftnotes
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 11
+          path: apks/
+
+  batch-12:
+    name: Build batch 12
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/materialos/android-icon-pack
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/UriahShaulMandel/BaldPhone
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ZeeRooo/MaterialFBook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nitroshare/nitroshare-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/indrora/Atomic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/editor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/michaelkourlas/voipms-sms-client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/0xbb/otp-authenticator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/helloworld1/AnyMemo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/IvanVolosyuk/diskusage
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rosenpin/always-on-amoled
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jquesnelle/nds4droid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MajeurAndroid/Applications-Info
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CriticalMaps/criticalmaps-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/erickok/transdroid-search
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/trishika/DroidUPnP
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/holylobster/nuntius-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/davidar/tensor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/emansih/FireflyMobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VladThodo/behe-keyboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Zanshinmu/Wifi-Fixer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tobykurien/webapps
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GunshipPenguin/open_flood
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JusticeRage/ApkTrack
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kriztan/Pix-Art-Messenger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kamegami13/MonsterHunter4UDatabase
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bernaferrari/SDKMonitor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cbeyls/fosdem-companion-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nilsbraden/ttrss-reader-fork
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devgianlu/Aria2Android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 12
+          path: apks/
+
+  batch-13:
+    name: Build batch 13
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JonasCz/save-for-offline
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OxfordHCC/tracker-control-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OpenTracksApp/OpenTracks
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/meshenger-app/meshenger-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EventFahrplan/EventFahrplan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fennifith/Status
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ThibaudM/timelapse-sony
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dozingcat/AsciiCam
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/redfish64/TinyTravelTracker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yuriykulikov/AlarmClock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/syncthing/syncthing-lite
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/guardianproject/PixelKnot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lexica/lexica
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/theblixguy/ForceDoze
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/tuner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/netmackan/ATimeTracker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ashutoshgngwr/noice
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TheRedSpy15/LTECleanerFOSS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LonamiWebs/Stringlate
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/teal77/trireme
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Piwigo/Piwigo-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-netmonitor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LISTEN-moe/android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Pi-Developers/Pi-Locker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mick88/filemanager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/matt-allen/repay-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/thuryn/your-local-weather
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsantner/dandelion
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Skarafaz/mercury
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andresth/Kandroid
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 13
+          path: apks/
+
+  batch-14:
+    name: Build batch 14
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/farmerbb/SecondScreen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/intervigilium/MicDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sds100/KeyMapper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tijder/SmsMatrix
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Fr4gorSoftware/SecScanQR
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JavaCafe01/PdfViewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/FAST
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kalaspuffar/secure-quick-reliable-login
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nextgis/android_gisapp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/moko256/twitlatte
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pacien/tincapp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ultrasonic/ultrasonic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/schollz/find3-android-scanner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/iAcn/MBEStyle
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adgad/kboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/agateau/pixelwheels
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quarck/CalendarNotification
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/scope
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nerzhul/ncsms-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/greenaddress/GreenBits
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/everythingandroid/android-smspopup
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jimmod/ShareToComputer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tananaev/rootless-logcat
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/butzist/ActivityLauncher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OpenMW/android-port
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bitcraze/crazyflie-android-client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/powerpoint45/Lucid-Browser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/basil2style/getid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/timnew/AndroidInfrared
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Alkarex/EasyRSS
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 14
+          path: apks/
+
+  batch-15:
+    name: Build batch 15
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Swing-team/pendulums-web-client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/j4velin/SystemAppMover
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/452/USBHIDTerminal
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wulkanowy/wulkanowy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/martykan/webTube
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LukeStonehm/LogicalDefence
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AnimeNeko/Atarashii
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ooni/probe-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lordi/tickmate
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Perflyst/Twire
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Tortel/SysLog
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cmeng-git/atalk-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jakobwenzel/MensaGuthaben
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/takke/cpustats
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Exodus-Privacy/exodus-android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bk138/multivnc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/scoutant/blokish
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GabrielTavernini/Covid19Stats
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nikclayton/android-squeezer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/inputmice/lttrs-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nvllsvm/Audinaut
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adrian/upm-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kaliturin/BlackList
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rascarlo/AURdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bailuk/AAT
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Jizzu/SimpleToDo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EthACKdotOrg/orWall
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Leszek111/ReLaunchX
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/marcosdiez/shareviahttp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vishesh/sealnote
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 15
+          path: apks/
+
+  batch-16:
+    name: Build batch 16
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Sash0k/bluetooth-spp-terminal
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tjg1/nori
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vitas/beaconloc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/light-launcher/Light-Android-Launcher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nus-mtp/worldscope
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/btcontract/wallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/restorer/gloomy-dungeons-2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andDevW/getChromium
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/guardianproject/ripple
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ilijamt/android-adbm
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phikal/ReGeX
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/code-crusher/EasyWeather
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/shkcodes/Lyrically
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/enricocid/VectorifyDaHome
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/grzegorznittner/chanu
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/urandom/gearshift
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SamAmco/track-and-graph
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SubhamTyagi/Last-Launcher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/blurpy/kouchat-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dimtion/Shaarlier
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/juha-h/baresip-studio
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sagemath/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wuan/bo-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bparmentier/WiFiKeyShare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-pedometer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/termux/termux-float
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/indication/OpenRedmine
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EXALAB/AnLinux-Adfree
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jroal/a2dpvolume
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/7LPdWcaW/GrowTracker-Android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 16
+          path: apks/
+
+  batch-17:
+    name: Build batch 17
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gatheringhallstudios/MHGenDatabase
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gstraube/cythara
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tengusw/share_to_clipboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-qr-scanner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/budget-watch
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kebernet/shortyz
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/biotinker/LibreTasks
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/y20k/escapepod
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aminecmi/ReaderforSelfoss
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pilot51/voicenotify
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adolfintel/chromiumUpdater
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/einmalfel/PodListen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/markmcavoy/androidtoken
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mwgg/passera
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/playmusicexporter/playmusicexporter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tobykurien/BatteryFu
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/easyintent/quickref
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/trezor/trezor-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SkyzohKey/M-Droid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/39aldo39/DecSyncCC
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/librespeed/speedtest-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tmarzeion/drawable-notepad
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/saschpe/BirthdayCalendar
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/LaunchTime
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CityZenApp/AndroidApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bradand/XMouse
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/42SK/TVKILL
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bparmentier/OpenBikeSharing
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mcastillof/FakeTraveler
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/blastrock/kakugo
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 17
+          path: apks/
+
+  batch-18:
+    name: Build batch 18
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/corcoran/Hangar
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mportuesisf/ScreenInfo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kaputnikGo/PilferShushJammer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/restorer/gloomy-dungeons-3d
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SubhamTyagi/AppLock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Free-Software-for-Android/FasterGPS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/SatoshiProof
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/caarmen/network-monitor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/konradrenner/kolabnotes-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Ryosuke839/UnicodePad
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-todo-list
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jamienicol/episodes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SteamGifts/SteamGifts
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/douzifly/clear-todolist
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vbier/habpanelviewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ramack/ActivityDiary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/currency
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/2Ra66it/updater-for-spotify
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Wilm0r/giggity
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/BookyMcBookface
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tkrajina/10000sentences
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/numixproject/com.numix.icons_circle
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zamojski/TowerCollector
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/j4velin/WiFi-Automatic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andybalaam/rabbit-escape
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devonjones/PathfinderOpenReference
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jasonycw/MemeCreator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MPieter/Notification-Analyser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/swentel/indigenous-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-sudoku
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 18
+          path: apks/
+
+  batch-19:
+    name: Build batch 19
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GroundApps/ShoppingList
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/alexdantas/kure-music-player
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/schaal/ocreader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Staacks/phyphox-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AsteroidOS/AsteroidOSSync
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EvanRespaut/Equate
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/z3r0c00l-2k/AquaDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kevinhinterlong/archwiki-viewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xgouchet/Stanley
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tranquvis/SimpleSmsRemote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yellowbluesky/PixivforMuzei3
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andreynovikov/trekarta
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/amirzaidi/DNGProcessor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/y20k/trackbook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ValleZ/Paper-Wallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Thank-You
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dozingcat/VectorCamera
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lopespm/arxiv-papers-mobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/franciscofranco/Simple-Reboot-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/flackbash/AudioAnchor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/slartus/4pdaClient-plus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/protect-baby-monitor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kost/NetworkMapper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JakeLane/Toffeed
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/equeim/tremotesf-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kiliakin/YalpStore
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/veken0m/bitcoinium
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/k3b/intent-intercept
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aravindsagar/ScreenShift
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mathisdt/trackworktime
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 19
+          path: apks/
+
+  batch-20:
+    name: Build batch 20
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/blockstream/green_android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daper/nextcloud-passwords-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pR0Ps/LocationShare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gabm/TapAndTurn
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-notes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/iamSahdeep/Bop
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mwarning/trigger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dougkeen/BartRunnerAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yanus171/Handy-News-Reader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/experiment322/controlloid-client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jlelse/teleposter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CoolMicApp/CoolMicApp-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wesaphzt/privatelocation
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Seva-coder/Finder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CorvetteCole/GotoSleep
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pmarks-net/chromadoze
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Sparker0i/Weather
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/subchannel13/EnchantedFortress
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/corphish/NightLight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SpiritCroc/DefaultDarkTheme-oms
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-weather
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jereksel/Bucket
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-shopping-list
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nproth/pin
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/smarek/Simple-Dilbert
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/HenriDellal/emerald
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/BLExplorer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sanbeg/flashlight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/charbgr/Anagram-Solver
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sarbajitsaha/Batch-Uninstaller
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 20
+          path: apks/
+
+  batch-21:
+    name: Build batch 21
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/koelleChristian/trickytripper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andstatus/todoagenda
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Alikaraki95/Getoffyourphone
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/openintents/notepad
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mkulesh/onpc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sozialhelden/wheelmap-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pinetum/AirUnlock-for-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/matt-allen/loaned-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/warmshowers/wsandroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/httpdispatch/MissedNotificationsReminder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/woefe/ShoppingList
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/valerio-bozzolan/AcrylicPaint
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jp-bennett/fwknop2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/enricocid/Color-picker-library
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AlexKang/blue-chat
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/stanipintjuk/Silverfish
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/openbmap/radiocells-scanner-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/AJShA
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fixme-lausanne/MyHackerspace
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/youten/iBeaconDetector
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/grennis/MongoExplorer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ultramega/elementary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/arnowelzel/periodical
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TeamNewPipe/NewPipe-legacy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tube42/drumon
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lkorth/screen-notifications
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/sig-gen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LiMium/mini-vector-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/niteshpatel/ministocks
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Fortyseven/ToneDef
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 21
+          path: apks/
+
+  batch-22:
+    name: Build batch 22
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nathanj/ogsdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dmashuda/networkScanner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gustavomondron/twik
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/apcro/leafpicrevived
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ShosetsuOrg/android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devgianlu/PretendYoureXyzzyAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mikifus/padland
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/anselm94/Torchie-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fasteque/rgb-tool
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RichyHBM/Monochromatic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andviane/google-books-android-viewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ITVlab/Launch-On-Boot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nathan-osman/chronosnap
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/PhotoBackup/client-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/caarmen/poet-assistant
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rascarlo/ArchPackages
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ScreamingHawk/phone-saver
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jruesga/PhotoPhase
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/NyaaPantsu/NyaaPantsu-android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dotWee/MicroPinner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GermainZ/Identiconizer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TobiasBielefeld/Simple-Brick-Games
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JohnPersano/CrimeTalk-Reader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xmikos/SnooperStopper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/btimofeev/UniPatcher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/F4uzan/HgLauncher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DimensionDev/Tessercube-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sorz/TinyKeePass
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/abcdjdj/RootVerifier-APP
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bparmentier/APKShare
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 22
+          path: apks/
+
+  batch-23:
+    name: Build batch 23
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Nonononoki/Hendroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/leoxshn/posidonLauncher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phw/Android-PwdHash
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/k3b/toGoZip
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/inguin/moneybalance
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Domi04151309/AlwaysOn
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/markusfisch/WaveLinesWallpaper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mustafa01ali/SensorsSandbox
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SensorApps/Sensors2OSC
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/HugoGresse/Anecdote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pretix/pretixdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Dryec/tron-wallet-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DaxiaK/VirtualSoftKeys
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Yakoo63/GTalkSMS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/92lleo/WhatsappWebToGo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/39aldo39/spaRSS-DecSync
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tobexyz/yaacc-code
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tobykurien/GoogleApps
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TobiasBielefeld/Simple-Search
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TKJElectronics/BalanduinoAndroidApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bparmentier/DNSSetter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/anthonydahanne/ReGalAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Lanchon/sigspoof-checker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/flex3r/DankChat
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/readrops/Readrops
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devgianlu/DNSHero
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/micwallace/reddinator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wesaphzt/privatelock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SapuSeven/BetterUntis
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-wifi-manager
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 23
+          path: apks/
+
+  batch-24:
+    name: Build batch 24
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ruleant/getback_gps
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LawnchairLauncher/Lawnchair-V1
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/freaktechnik/Webthingify
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jsparber/CaptivePortalAutologin
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nbenm/ImapNote2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/UART-Smartwatch
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xargsgrep/PortKnocker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tryton-vanmeer/LibreTrivia
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mlsoft/Trycorder5
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xloem/qrstream
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/danvratil/FBEventSync
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ChickenHook/StartFlagExploit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DeweyReed/ClipboardCleaner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/NachiketaVadera/EBookDownloader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/domoritz/open-mensa-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lolo-io/OneList
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sryze/wirebug
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsantner/kimai-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dozingcat/CamTimer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VladThodo/behe-explorer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Voice-Recorder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/freshollie/UsbGps4Droid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/k3b/ContentProviderHelper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/biylda/WhereYouGo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vishnus/Olam
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsingh93/hacker-live-wallpaper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/raatmarien/chibe
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/shlusiak/Freebloks-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ostrya/PresencePublisher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ScreamingHawk/android-slideshow
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 24
+          path: apks/
+
+  batch-25:
+    name: Build batch 25
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GarrettBeatty/arXiv-eXplorer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/drodin/TuxRider
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cotechde/termbot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/ComputationalDemonology
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Yubico/yubiclip-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/IbrahimYousre/Resume-Builder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/orhun/k3pler
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/amasciul/Drinks
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/linux-colonel/AdminControl
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/milesmcc/LibreNews-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-ludo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daktak/androidpn-client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cw/svg-viewer-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/seguri/lock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/niccokunzmann/mundraub-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/openintents/flashlight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rubenroy/Minimal-Todo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/iamtrk/Device-Explorer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/punksta/volume_control_android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pyload/pyload-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-SMS-Messenger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsurrel/FacebookNotifications
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mikljohansson/retroboy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ElijaxApps-org/android-xmrig-miner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mschlauch/comfortreader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lufte/lona
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gjedeer/mylocation
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mofosyne/NFCMessageBoard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/soynerdito/BlueSound
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kodejak/Hashr
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 25
+          path: apks/
+
+  batch-26:
+    name: Build batch 26
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/MaterialTeaTimer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CookieJarApps/SmartCookieWeb
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jfilter/frag-den-staat-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RyuzakiKK/NoteCrypt
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mvbasov/lWS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/freshollie/monkeyboard-radio-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Cj-Malone/Screens
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Adonai/Man-Man
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andybotting/tramhunter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Nutomic/movecerts
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/androidsoft-org/androidsoft-coloring
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mtotschnig/SendWithFtp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/HackMyChurch/aelf-dailyreadings
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Utazukin/Ichaival
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jklmnn/ParkenDD
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/takke/DataStats
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nickdurante/Spider
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nilesr/United4
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kenCode-de/smartcoins-wallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/benjaminaigner/aiproute
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vitSkalicky/lepsi-rozvrh
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fi3te/NotificationCron
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimpleMobileTools/Simple-Dialer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/R4md4c/GameDealz
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rmst/yoke-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/c3nav/c3nav-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wrmndfzzy/Atomize
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JSandomierz/pcis
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-passwordgenerator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/baby-sleep-sounds
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 26
+          path: apks/
+
+  batch-27:
+    name: Build batch 27
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsantner/cherrymusic-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/enricocid/Battery-Live
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kconger/org.thecongers.mtpms
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mattgmg1990/miracast-widget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Crazy-Marvin/Morse
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ajh3/NoSurfForReddit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tigase/stork
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wseemann/RoMote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Alcidauk/CineLog
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gryphius/androdns
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daktak/opengapps_downloader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MartiniMoe/MIDICtrl
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hacker1024/android-wifi-qr-code-generator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/AnotherRSS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/schnatterer/nusic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/subhamtyagi/openinwa
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/NHellFire/KernelAdiutor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wsdfhjxc/taponium
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-torchlight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MrDoomy/Torch
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/stwalkerster/strobelight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Chemik/logcatudp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vamartid/Minesweeper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/j05t/dbclf
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Sav22999/common-voice-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ivpn/android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/marcdonald/hibi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/accordion
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EmmanuelMess/Simple-Accounting
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dh4/WeatherRadar
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 27
+          path: apks/
+
+  batch-28:
+    name: Build batch 28
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nicolasbrailo/VlcFreemote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/shymmq/librus-client-kotlin
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bpeel/prevo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/ImageSms
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/Primary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rignaneseleo/SlimSocial-for-Twitter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Scraper-Club/Android-Scraper-Club
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tobykurien/WebMediaShare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SamarthDesai01/RepeatMe
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Xipher7934/NeuralNetworkSimulator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/qqq3/inventum
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/AudioMeter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/agateau/cat-avatar-generator-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/RickApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gsurrel/MessengerBypasser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/KeikaiLauncher/KeikaiLauncher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cvzi/ScreenshotTile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fabienli/DokuwikiAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vmiklos/plees-tracker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RodrigoDavy/PixelArtist
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/k3b/LosslessJpgCrop
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OAndell/Riksdagskollen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/abhijitvalluri/fitnotifications
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Mnkai/PGPClipper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jkennethcarino/AnkiEditor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DecentralizedAmateurPagingNetwork/DAPNETApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TheAkki/Synctool
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pmiddend/piggybudget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daktak/afh_downloader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/WikiJourney/wikijourney_app
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 28
+          path: apks/
+
+  batch-29:
+    name: Build batch 29
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/thelinuxgeekcommunity/simpleirc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fenimore/fissure-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/kylecorry31/Trail-Sense
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MBach/LeMondeRssReader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/crossword
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Pygmalion69/OpenTopoMapViewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-memo-game
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jpeddicord/speedofsound
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SpiritCroc/DarkCroc-Android-theme
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gregko/TtsPlus-FBReader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/TextThing
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/0xpr03/VocableTrainer-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/michaelachmann/LnkShortener
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bobthekingofegypt/BobBall
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mridang/gasflow
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rnauber/pipepanic-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RCasatta/EternityWallAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/foxykeep/lifecounter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nicolasbrailo/PianOli
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rgex/UBIC-android-wallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/impalex/knockonports
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bvlj/diab
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/4nubhav/WhatsDeleted
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/marcoM32/SeaMapDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tube42/candymem
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/renyuneyun/CamCov
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rastating/DroidBeard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yuttadhammo/BodhiTimer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/BombusMod/BombusMod
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tunjid/digilux-android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 29
+          path: apks/
+
+  batch-30:
+    name: Build batch 30
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/beegee-tokyo/disaster-radio-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Gittner/OSMBugs
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/richsmith/sexytopo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devmil/PaperLaunch
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jeffboody/gears2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/caarmen/scrumchatter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/retrobits/son_of_hunkypunk
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/SeafoodBerserker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aeri/Nihonoari-App
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-werewolf
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Abdallah-Abdelazim/My-Notes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fenimore/DemocracyDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/paride/CopperPDF
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/faerbit/android-crond
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vcmi/vcmi-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bamless/chromium-swe-updater
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JanmanX/EncryptTextApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JBirdVegas/external_jbirdvegas_mGerrit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/meonwax/soundboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rmceoin/cidrcalculator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tvbarthel/SimpleThermometerProject
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/alexghr/bulkshare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/basil2style/Sudoku-Pattern-Generator-App
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/enricocid/Storage-USB
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Ohmnibus/quick-dice-roller
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-ruler
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/0xe1f/Spark360
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rtreffer/ContactMerger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/johnjohndoe/CampFahrplan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Domi04151309/Power-App-for-Android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 30
+          path: apks/
+
+  batch-31:
+    name: Build batch 31
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoenb/Soft-Sound
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-interval-timer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-food-tracker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MarquisLP/World-Scribe
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-dame
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mannd/epmobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-pain-diary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OSRSHelper/OSRSHelper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Perflyst/OpenUntis
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JiriSko/amixer-webui-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/c4ffein/OOS-firmware-updater
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/s6joui/homebot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/WIStudent/FreifunkAutoConnectApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mo3rfan/syncplayer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/0xFireball/PluckLockEx
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/enricocid/Simply-Solid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gianluca-nitti/android-expr-eval
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Antonis427/veterondo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/75py/DisableManager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ReeceStevens/ut_ewh_audiometer_2014
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tvbarthel/SimpleWeatherForecast
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/czlee/debatekeeper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tube42/9p
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daktak/xposed_downloader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/frankkienl/BronyLiveWallpaper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LeonardoCardoso/Multitouch-Test
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/metabrainz/musicbrainz-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/snikket-im/snikket-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rubenwardy/mtmods4android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/upost/DeltaCamera
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 31
+          path: apks/
+
+  batch-32:
+    name: Build batch 32
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MBach/AutoAirplaneMode
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tobihille/SeniorLauncher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Perflyst/BatteryCalibration
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zikalify/BMI_Calculator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SASAbus/SASAbus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Utyff/pMetro
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/beriain/PolarClock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lukaslihotzki/pixelflood
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/domogik/domodroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ligi/etheremote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ylogx/wordpowermadeeasy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pedja1/aLogcatRoot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Berlin-Vegan/berlin-vegan-guide
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rigid/Birthdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/chris-blay/radio-reddit-for-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DevelopFreedom/logmein-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CTemplar/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/thetwom/toc2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RailwayStations/RSAndroidApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gjedeer/Acastus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SimoneTinella/Stato_COVID19_Italia_Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mattvchandler/2050
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vadret/android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tacticalDevC/PanicTrigger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/x1unix/s60-icon-pack
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/prrt714/Kaleidoscope
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lllllT/AtmosphereLogger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/h0chi/next-companion
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/NotifyRelay
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aidin36/simpletextcrypt
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 32
+          path: apks/
+
+  batch-33:
+    name: Build batch 33
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/raatmarien/Point-and-Hit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/conchyliculture/wikipoff
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/h42i/d00r-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jatwigg/cmus-android-remote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DoubleGremlin181/WhatsApp-Twitch-Stickers
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aceventura82/AppsDisabler
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AdrienPoupa/AttestationDeplacement
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/theblackwidower/KanaQuiz
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mattvchandler/progressbars
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fralik/Duorem
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LuK1337/SauceNAO
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cubei/flashcards
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rascarlo/AdaptiveBrightnessTile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SubhamTyagi/night-mode-tile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TheChiefMeat/FreeTusky
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sanderbaas/WeatherWidget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/subins2000/manglish
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ojacquemart/vlilleChecker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/anton-arnold/xoverrideheadphonejackdetection
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nbossard/packlist
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-minesweeper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/maxammann/music-cyclon
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-finance-manager
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daktak/basketbuild_downloader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/gift-card-guard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/segin/TTLEditor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aario/snotepad
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CommonsLab/CommonsLab
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/M66B/FineGeotag
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ratmole/Mach3Pendant
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 33
+          path: apks/
+
+  batch-34:
+    name: Build batch 34
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Lesik/open-archnews
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/marunjar/anewjkuapp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fistons/TinyTinyFeed
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoenb/vortaro
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/queler/holokenmod
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/btimofeev/instead-launcher-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/marc136/tonuino-nfc-tools
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tananaev/calculator-notification
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/thiolliere/YouTubeStream
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/beckhamd/nasa-imagery-fetcher
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/namlit/siteswap_generator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sadr0b0t/yashlang
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-reckoning-skills
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Rudloff/PaperCraft
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-pin-mnemonic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/eriknellessen/user-controlled-decryption-operations
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daverix/urlforwarder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dasbiswajit/worldclockwidget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Tyde/TuCanMobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tiphedor/SMS-Spammer-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MichaelEvans/NightModeEnabler
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/richardchien/jigsaw-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/monakhv/samlib-Info
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/teamOSC/SubtleNews_Android_App
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OpenTracksApp/OSMDashboard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/powerje/NyanDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/knirirr/BeeCount
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/starryalley/AmbitSync
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ndleyton/OneTwo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/shorty
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 34
+          path: apks/
+
+  batch-35:
+    name: Build batch 35
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-dicer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ktt-ol/hacs
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Willena/OpenDNSUpdater
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/n76/Symphony
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aario/MyWifiPasswords
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hexedit/amazfit-face-replacer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/binary-kitchen/doorlock-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ATryder/TEdit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EXL/Snooder21
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoenb/log28
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fabmazz/Timber
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phpsysinfo/psiandroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Sw24Softwares/StarkeVerben
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/spidgorny/workingtimealert
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/knilch0r/freeshisen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/linuxtage/glt-companion
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-pausing-healthily
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OneTimePass/OneTimePass
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-tape-measure
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jiikuy/velocitycalculator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/btcontract/lnwallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LibreShift/OpenShift
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vanitasvitae/EnigmAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jselbie/wrekonline
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fadelakin/SFM
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MrDoomy/OverFlow
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ciasaboark/Tacere
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/guvery/NotifyMe
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tuckervento/Tinfoil-Twitter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/claha/movianremote
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 35
+          path: apks/
+
+  batch-36:
+    name: Build batch 36
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JohnMH/BoogDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ebaschiera/TripleCamel
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/lpar/RPN
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/red-coracle/episodes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jtsalva/cloudmare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Domi04151309/HomeApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EventInfra/wifisetup
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/carlphilipp/chicago-commutes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TheFakeMontyOnTheRun/knightsofalentejo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rparkins999/CalendarTrigger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Softcatala/TraductorSoftcatalaAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/TriPeaksSolitaireForAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adolfintel/sine-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/IthakaBoardGame
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/luelista/LDAP-Sync
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/YasuakiHonda/Maxima-on-Android-AS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/DodaTheExploda
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/FreeKlondike
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-2048
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Tishka17/Point.im-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/err4nt/SwpieView
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/x1125/initd-light
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/norenh/RKFRead
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Earthblood/Toe
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hackathoner/Gradr
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/316k/android-tap-the-black-tiles
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LuK1337/TimeTable2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fenimore/devinettes-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phunehehe/fooCam
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vuze/vuze-remote-for-android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 36
+          path: apks/
+
+  batch-37:
+    name: Build batch 37
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/richardchien/clear-weather-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/TripSit/tripmobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/indiandragon/Shellshock-Vulnerability-Scan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JohnLines/mediclog
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/patrickkostjens/Kandroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/HappyPeng2x/SumatoraDictionary
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fr3ts0n/StageFever
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/OldSparkyMI/aRevelation
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aragaer/jtt_android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/YoeriNijs/NoteBuddy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/csicar/MensaPlan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/brarcher/rental-calc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/marcopar/SliderSynth
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/ViboraFeed
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/forrestguice/SuntimesCalendars
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/achromaticmetaphor/agram
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-dice-game
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Bubu/android-dice-game
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mofosyne/tagdrop
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hackathoner/LoveGame
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/raydac/AndroidPirateDice
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DamienOReilly/PrepayCredit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/miguelvps/PoliteDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/renancunha33/DiolinuxApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mbmb5/Eylca
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/316k/android-fortune
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hoihei/Silectric
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cryptofuture/PassCard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SLoeuillet/WIFI_EAP_SIM_Conf
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/losttime/cooper
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 37
+          path: apks/
+
+  batch-38:
+    name: Build batch 38
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Waboodoo/Status-Bar-Tachometer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/igrmk/smsq
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/joshuawolfsohn/Private-DNS-Quick-Tile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fyreplace/fyreplace-client-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fei0316/snapstreak-alarm
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Faltenreich/Diaguard
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Harvie/NorthDog
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/joaomneto/TitanCompanion
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/segin/BFInterpreter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Danesprite/tts-util-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/DevLuuk/SleepyWifi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/alexcustos/linkasanote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/devasworski/Corona-Info
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rascarlo/PowerButtonTile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LithiumSR/openstud_client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dfrits/MobilePauker2
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/palmcalc2019/PalmCalc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pot8oe/mythmote
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/c-base/c-beam-droid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/characterdog/share-my-number
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/achromaticmetaphor/IMCKTG
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/X-Ryl669/BwareArea
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SubhamTyagi/dork-explore
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vanilla-music/vanilla-headphone-detector
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/felixwiemuth/LinCal
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rosenpin/Screenshot-Sharer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/openintents/aboutapp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tasomaniac/hackdash
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/iexos/BipolAlarm
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/RinatKurmaev/Tether-companion
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 38
+          path: apks/
+
+  batch-39:
+    name: Build batch 39
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mridang/microchip
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/howeyc/spipedmobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/logomancer/diedroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/chaosdorf/meteroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/NCBSinfo/NCBSinfo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/notes
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zikalify/StoicReading
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/meyerd/funktrainer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/billthefarmer/melodeon
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mobimentum/dualsimreminder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nishant-boro/split-it-easy-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MarcoSpoerl/simply-pace
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pretix/pretixscan-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Stypox/mastercom-workbook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/heb12/heb12-mobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/libertysoft3/RedReader
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/characterdog/bmi-calculator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/emdete/tabulae
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mathbellev/StdAtmosphere
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/Wortschatz
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaap/PhoneFoneFun
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ultramega/flavordex
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GittyMac/MoClock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/WKenya/bookmarkOS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Starcommander/StreamRadio
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/benjaminSchilling33/congress_fahrplan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/PierreBresson/Cause-Commune
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-solitaire
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/andswitch/techahashi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/vitosha-blackjack
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 39
+          path: apks/
+
+  batch-40:
+    name: Build batch 40
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/JanSvoboda/aeonsend-randomizer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ScreamingHawk/fate-sheets
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/WeAreFairphone/FP2-Checkup
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aario/killcamera
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LeoChirkov/Service-Menu
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rosenpin/DBZ-Battery-Widget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ars3niy/openpass
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yankovskiy/SilentNight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/agnibho/solarcompass
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Yonjuni/ExaltedDicer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Eibriel/RedDot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mateusz-szafraniec/NFCTagmaker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SmokeyMcBong/ED_Tool
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ianmcxa/ZephyrLogger
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/engSERGIU/React
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/FunPhonePuppet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/seguri/GetForegroundActivity
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/luarca84/Caramelos
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sebastianrakel/fb-client-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/agnelvishal/newsDiet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SpEcHiDe/WhatsAppTransmitter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/crysxd/Studiportal-Checker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/AleixDev/AppSpecificOrientation_FOSS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adstro/launch-app-ops
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wownero/cyberwow
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pla1/FediPhoto
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/osmontrouge/caresteouvert_android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hadeutscher/HaRail_Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/PeredurOmega/FrenchTravelCertificate
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pjuu/droidotter
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 40
+          path: apks/
+
+  batch-41:
+    name: Build batch 41
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tengel/AndroidPlanisphere
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zouroboros/filmchecker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/justdave/nwsweatheralertswidget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CNugteren/NLWeer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phrogg/GetMiTokens
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/yacgroup/yacguide
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/LinDevHard/raspb-finder
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-circuit-training-exercises
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jdmonin/anstop
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/quaddy-services/DynamicNightLight
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/timo-a/SudoQ
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wownero/wownerujo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/williehwc/wonderdroid-x
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jeffisaak/diceware-pass-gen
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/allan-simon/verbiste-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ellaism/Lunary-Ethereum-Wallet
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hoffimar/timerdroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/francescosoave/TIS_android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pascalfree/calendar-color
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/queler/sharetobrowser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mo3rfan/ScrollSocket
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/roadriverrail/elloshare
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/balesz/android-WebSearch
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/aperifons/Wa-Tor
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/carts-uiet/cartsbusboarding
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/firetech/PactrackDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/HopEdia/android-client
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/urtxintxa/HexColorTime
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/alandais/Pointeuse_S3I
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/scar45/aokp-co-webviewer
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 41
+          path: apks/
+
+  batch-42:
+    name: Build batch 42
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/numixproject/org.numixproject.iconsubmit
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phw/PicardBarcodeScanner
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Amabyte/vtu-cs-lab-manual
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gringer/ConcentricClock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Doplgangr/Secrecy_fDroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wistein/TransektCount
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/guildem/publicip-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ZiiS/huewidgets
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/davidar/fabularium
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/EmmanuelMess/Simple-Cleanup
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gbarre/xiaExpressAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/warenix/Web2PDF
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SecUSo/privacy-friendly-boardgame-clock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/hu-berlin-cms/hu-eduroam
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mvbasov/lWS.QR
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/HouseOfCards
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/HungarianRingsForAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MarcelJurtz/LifeCounter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zaren678/Hdhomerun-signal-meter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/jakevossen5/Apollo-Trivia
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dynamitetuning/com.dynamite.heaterrc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/HassanHeydariNasab/atop-react-native
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Webierta/ToDoList
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gloomy-ghost/sysnotifsnooze
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/oaken-source/exceer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Shirakumo/ocelot
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/arnef/bewegungsmelder-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gilbsgilbs/freemobilenetstat
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/GrahamBlanshard/WiseRadar
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 42
+          path: apks/
+
+  batch-43:
+    name: Build batch 43
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Eun/InitialVolume
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fabmazz/triesteinbus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mofosyne/instantReadmeApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/goexle/peanutEncryption
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/as4565683/WordValueCalculator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/subprogram/ParanoidSmsBlocker
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/adavari/Todoer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/MrFlyingToasterman/Pijaret
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vi/redscreen.apk
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tjmolinski/stripepaper
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gringer/ColourClock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/akvo/akvo-rsr-up
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/asdoi/TimeTable
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/corenting/ParisTransportTraffic
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/damiengo/WebsiteRSS
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gkalab/scidonthego
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mathisdt/sdbviewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/CarstenKarbach/MoTAC
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Matteljay/mastermindy-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/phrogg/BatteryCalibrator
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/alxgnon/PostWriter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/no-go/HaveRadiosion
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/travistynes/block6
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fair-exchange/safeprice
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xvello/salasana-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/BrainstonzForAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mvestola/helsinki-testbed2-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/niccokunzmann/bhagavad-gita-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/caarmen/nounours-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Webierta/ahorcandroid
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 43
+          path: apks/
+
+  batch-44:
+    name: Build batch 44
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Renard1911/BaiApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Depau/POuLBITS-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ibinshoid/LASKmobile
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/capitoledulibre/cdl-companion-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/huckleberrypie/pollywog
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SensorApps/Sensors2Pd
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/teknoraver/andhrystone
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/loisaidasam/mta-fare-buster-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/javierllorente/adc
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/dgmltn/android-MorphClock
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Allsimon/Alldebrid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/idunnololz/igo
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mcarolan/when-ze-bus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/louffoster/FlickIt
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/logomancer/dashquotes-civ5
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/uatach/reminders
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zxalexis/guess
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/rnauber/xskat-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sujithkanna/TouchDetector
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoff99/surespot-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cryptofuture/urlhda-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/daj/flashback
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/m0ppers/ElpeEfpeAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Rudloff/lineageos-updater-shortcut
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/wistein/TourCount
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoff99/CampFahrplan
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/muojp/sync-memories
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cetoolbox/cetoolbox
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sanskritbscs/memory
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zouroboros/feed-watcher
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 44
+          path: apks/
+
+  batch-45:
+    name: Build batch 45
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/fraygeyst/Contactbook
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/pretix/pretixprint-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/vitSkalicky/klavesnice
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Selfnet/selfnet-wificonfig
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mkg20001/aruba-networks-login
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/android-vitosha-poker-odds
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mohamedbelhassen/YoutubeListingApp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/zoff99/MetalabDoorWidget
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/danielme-com/Muspy-for-Android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/Amerlander/Calliope-Android-App
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/VelbazhdSoftwareLLC/Kechi
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/gelin/open-in-browser
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ka-ba/yucata.envoy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nfd/KeePassNFC
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/afwang/ogame-android-app
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/tompreuss/APNSettings
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/sergey-tuzlukov/WeatherLogAndroid
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/cprados/wifimatic-android
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/nciric/NDFilter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/bronydell/Android-MGKEapp
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/SibDev/BadPixels
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/elboza/footguy
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/grmpl/StepandHeightcounter
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/mavidser/attendance-viewer
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/seguri/IsPhoneEncrypted
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/ppareit/Shutdown
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/omegavesko/SuTransPlus
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/efarraro/deckerino
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/scoutant/rpn
+      - run: bash experiments/clone_and_build_from_source.sh https://github.com/xavierfreyburger/tempus-romanum
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 45
+          path: apks/

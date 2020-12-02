@@ -1,0 +1,2347 @@
+name: Instrumentation (from apk)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  batch-1:
+    name: Build batch 1
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ogarcia/opensudoku
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dozingcat/Vector-Pinball
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimonMarquis/Android-SecretCodes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EtchDroid/EtchDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Yubico/yubioath-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/junjunguo/PocketMaps
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Flashlight
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AdguardTeam/ContentBlocker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TachibanaGeneralLaboratories/download-navi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TobiasBielefeld/Simple-Solitaire
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nv95/OpenManga
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-App-Launcher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/brarcher/loyalty-card-locker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/reloZid/android-anuto
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gateship-one/odyssey
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MaxFour/Music-Player
+      - run: bash experiments/instrument_from_apk.sh https://github.com/aaronjwood/PortAuthority
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AndreAle94/moneywallet
+      - run: bash experiments/instrument_from_apk.sh https://github.com/IngoZenz/personaldnsfilter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kamgurgul/cpu-info
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 1
+          path: apks/
+
+  batch-2:
+    name: Build batch 2
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rignaneseleo/SlimSocial-for-Facebook
+      - run: bash experiments/instrument_from_apk.sh https://github.com/DF1E/SimpleExplorer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/PuffOpenSource/Puff-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/etesync/android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/LonamiWebs/Klooni1010
+      - run: bash experiments/instrument_from_apk.sh https://github.com/GiorgioRegni/Binaural-Beats
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tejado/Authorizer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/flyve-mdm/android-mdm-agent
+      - run: bash experiments/instrument_from_apk.sh https://github.com/farmerbb/Notepad
+      - run: bash experiments/instrument_from_apk.sh https://github.com/itds-consulting/android-silent-ping-sms
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yaa110/Memento
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bfabiszewski/ulogger-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/greenaddress/abcore
+      - run: bash experiments/instrument_from_apk.sh https://github.com/geopaparazzi/geopaparazzi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimonMarquis/Android-PreferencesManager
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/diary
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zoff99/ToxAndroidRefImpl
+      - run: bash experiments/instrument_from_apk.sh https://github.com/hypeapps/episodie
+      - run: bash experiments/instrument_from_apk.sh https://github.com/posm/OpenMapKitAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/UriahShaulMandel/BaldPhone
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 2
+          path: apks/
+
+  batch-3:
+    name: Build batch 3
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nitroshare/nitroshare-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/editor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/0xbb/otp-authenticator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/helloworld1/AnyMemo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MajeurAndroid/Applications-Info
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CriticalMaps/criticalmaps-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/erickok/transdroid-search
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Zanshinmu/Wifi-Fixer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bernaferrari/SDKMonitor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cbeyls/fosdem-companion-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nilsbraden/ttrss-reader-fork
+      - run: bash experiments/instrument_from_apk.sh https://github.com/devgianlu/Aria2Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/OxfordHCC/tracker-control-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/OpenTracksApp/OpenTracks
+      - run: bash experiments/instrument_from_apk.sh https://github.com/meshenger-app/meshenger-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EventFahrplan/EventFahrplan
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ThibaudM/timelapse-sony
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dozingcat/AsciiCam
+      - run: bash experiments/instrument_from_apk.sh https://github.com/redfish64/TinyTravelTracker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yuriykulikov/AlarmClock
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 3
+          path: apks/
+
+  batch-4:
+    name: Build batch 4
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/syncthing/syncthing-lite
+      - run: bash experiments/instrument_from_apk.sh https://github.com/lexica/lexica
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/tuner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/netmackan/ATimeTracker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ashutoshgngwr/noice
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TheRedSpy15/LTECleanerFOSS
+      - run: bash experiments/instrument_from_apk.sh https://github.com/LonamiWebs/Stringlate
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Piwigo/Piwigo-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-netmonitor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/LISTEN-moe/android-app
+      - run: bash experiments/instrument_from_apk.sh https://github.com/thuryn/your-local-weather
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gsantner/dandelion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Skarafaz/mercury
+      - run: bash experiments/instrument_from_apk.sh https://github.com/andresth/Kandroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/farmerbb/SecondScreen
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sds100/KeyMapper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tijder/SmsMatrix
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Fr4gorSoftware/SecScanQR
+      - run: bash experiments/instrument_from_apk.sh https://github.com/JavaCafe01/PdfViewer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kalaspuffar/secure-quick-reliable-login
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 4
+          path: apks/
+
+  batch-5:
+    name: Build batch 5
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nextgis/android_gisapp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ultrasonic/ultrasonic
+      - run: bash experiments/instrument_from_apk.sh https://github.com/schollz/find3-android-scanner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/iAcn/MBEStyle
+      - run: bash experiments/instrument_from_apk.sh https://github.com/adgad/kboard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quarck/CalendarNotification
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/scope
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nerzhul/ncsms-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jimmod/ShareToComputer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tananaev/rootless-logcat
+      - run: bash experiments/instrument_from_apk.sh https://github.com/butzist/ActivityLauncher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bitcraze/crazyflie-android-client
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Alkarex/EasyRSS
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Swing-team/pendulums-web-client
+      - run: bash experiments/instrument_from_apk.sh https://github.com/452/USBHIDTerminal
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wulkanowy/wulkanowy
+      - run: bash experiments/instrument_from_apk.sh https://github.com/martykan/webTube
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Perflyst/Twire
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Tortel/SysLog
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Exodus-Privacy/exodus-android-app
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 5
+          path: apks/
+
+  batch-6:
+    name: Build batch 6
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/scoutant/blokish
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nikclayton/android-squeezer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/inputmice/lttrs-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nvllsvm/Audinaut
+      - run: bash experiments/instrument_from_apk.sh https://github.com/adrian/upm-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rascarlo/AURdroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bailuk/AAT
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EthACKdotOrg/orWall
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vitas/beaconloc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/light-launcher/Light-Android-Launcher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/guardianproject/ripple
+      - run: bash experiments/instrument_from_apk.sh https://github.com/code-crusher/EasyWeather
+      - run: bash experiments/instrument_from_apk.sh https://github.com/shkcodes/Lyrically
+      - run: bash experiments/instrument_from_apk.sh https://github.com/enricocid/VectorifyDaHome
+      - run: bash experiments/instrument_from_apk.sh https://github.com/grzegorznittner/chanu
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SamAmco/track-and-graph
+      - run: bash experiments/instrument_from_apk.sh https://github.com/blurpy/kouchat-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dimtion/Shaarlier
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wuan/bo-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bparmentier/WiFiKeyShare
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 6
+          path: apks/
+
+  batch-7:
+    name: Build batch 7
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/termux/termux-float
+      - run: bash experiments/instrument_from_apk.sh https://github.com/indication/OpenRedmine
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EXALAB/AnLinux-Adfree
+      - run: bash experiments/instrument_from_apk.sh https://github.com/7LPdWcaW/GrowTracker-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gstraube/cythara
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tengusw/share_to_clipboard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-qr-scanner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/brarcher/budget-watch
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pilot51/voicenotify
+      - run: bash experiments/instrument_from_apk.sh https://github.com/adolfintel/chromiumUpdater
+      - run: bash experiments/instrument_from_apk.sh https://github.com/markmcavoy/androidtoken
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tobykurien/BatteryFu
+      - run: bash experiments/instrument_from_apk.sh https://github.com/easyintent/quickref
+      - run: bash experiments/instrument_from_apk.sh https://github.com/trezor/trezor-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/39aldo39/DecSyncCC
+      - run: bash experiments/instrument_from_apk.sh https://github.com/librespeed/speedtest-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tmarzeion/drawable-notepad
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/LaunchTime
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CityZenApp/AndroidApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/42SK/TVKILL
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 7
+          path: apks/
+
+  batch-8:
+    name: Build batch 8
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mcastillof/FakeTraveler
+      - run: bash experiments/instrument_from_apk.sh https://github.com/corcoran/Hangar
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mportuesisf/ScreenInfo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kaputnikGo/PilferShushJammer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SubhamTyagi/AppLock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Free-Software-for-Android/FasterGPS
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/SatoshiProof
+      - run: bash experiments/instrument_from_apk.sh https://github.com/caarmen/network-monitor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/konradrenner/kolabnotes-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Ryosuke839/UnicodePad
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-todo-list
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jamienicol/episodes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vbier/habpanelviewer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ramack/ActivityDiary
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/currency
+      - run: bash experiments/instrument_from_apk.sh https://github.com/2Ra66it/updater-for-spotify
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Wilm0r/giggity
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/BookyMcBookface
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tkrajina/10000sentences
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zamojski/TowerCollector
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 8
+          path: apks/
+
+  batch-9:
+    name: Build batch 9
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/swentel/indigenous-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-sudoku
+      - run: bash experiments/instrument_from_apk.sh https://github.com/GroundApps/ShoppingList
+      - run: bash experiments/instrument_from_apk.sh https://github.com/schaal/ocreader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Staacks/phyphox-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AsteroidOS/AsteroidOSSync
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EvanRespaut/Equate
+      - run: bash experiments/instrument_from_apk.sh https://github.com/z3r0c00l-2k/AquaDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kevinhinterlong/archwiki-viewer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/xgouchet/Stanley
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tranquvis/SimpleSmsRemote
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yellowbluesky/PixivforMuzei3
+      - run: bash experiments/instrument_from_apk.sh https://github.com/andreynovikov/trekarta
+      - run: bash experiments/instrument_from_apk.sh https://github.com/amirzaidi/DNGProcessor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/y20k/trackbook
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ValleZ/Paper-Wallet
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Thank-You
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dozingcat/VectorCamera
+      - run: bash experiments/instrument_from_apk.sh https://github.com/franciscofranco/Simple-Reboot-app
+      - run: bash experiments/instrument_from_apk.sh https://github.com/flackbash/AudioAnchor
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 9
+          path: apks/
+
+  batch-10:
+    name: Build batch 10
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/slartus/4pdaClient-plus
+      - run: bash experiments/instrument_from_apk.sh https://github.com/JakeLane/Toffeed
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mathisdt/trackworktime
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jitsi/jitsi-meet
+      - run: bash experiments/instrument_from_apk.sh https://github.com/android-hacker/VirtualXposed
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pockethub/PocketHub
+      - run: bash experiments/instrument_from_apk.sh https://github.com/inorichi/tachiyomi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dolphin-emu/dolphin
+      - run: bash experiments/instrument_from_apk.sh https://github.com/termux/termux-app
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tutao/tutanota
+      - run: bash experiments/instrument_from_apk.sh https://github.com/iSoron/uhabits
+      - run: bash experiments/instrument_from_apk.sh https://github.com/owncloud/android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TeamAmaze/AmazeFileManager
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AntennaPod/AntennaPod
+      - run: bash experiments/instrument_from_apk.sh https://github.com/moezbhatti/qksms
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jonan/ForkHub
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ankidroid/Anki-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cSploit/android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kabouzeid/Phonograph
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AdAway/AdAway
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 10
+          path: apks/
+
+  batch-11:
+    name: Build batch 11
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/andOTP/andOTP
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Calendar
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TwidereProject/Twidere-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/blockstream/green_android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pR0Ps/LocationShare
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-notes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/iamSahdeep/Bop
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mwarning/trigger
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dougkeen/BartRunnerAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yanus171/Handy-News-Reader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jlelse/teleposter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CoolMicApp/CoolMicApp-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wesaphzt/privatelocation
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pmarks-net/chromadoze
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Sparker0i/Weather
+      - run: bash experiments/instrument_from_apk.sh https://github.com/subchannel13/EnchantedFortress
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-weather
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-shopping-list
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nproth/pin
+      - run: bash experiments/instrument_from_apk.sh https://github.com/smarek/Simple-Dilbert
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 11
+          path: apks/
+
+  batch-12:
+    name: Build batch 12
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/HenriDellal/emerald
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/BLExplorer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sarbajitsaha/Batch-Uninstaller
+      - run: bash experiments/instrument_from_apk.sh https://github.com/andstatus/todoagenda
+      - run: bash experiments/instrument_from_apk.sh https://github.com/openintents/notepad
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mkulesh/onpc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/woefe/ShoppingList
+      - run: bash experiments/instrument_from_apk.sh https://github.com/valerio-bozzolan/AcrylicPaint
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AlexKang/blue-chat
+      - run: bash experiments/instrument_from_apk.sh https://github.com/openbmap/radiocells-scanner-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fixme-lausanne/MyHackerspace
+      - run: bash experiments/instrument_from_apk.sh https://github.com/youten/iBeaconDetector
+      - run: bash experiments/instrument_from_apk.sh https://github.com/grennis/MongoExplorer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ultramega/elementary
+      - run: bash experiments/instrument_from_apk.sh https://github.com/arnowelzel/periodical
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tube42/drumon
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/sig-gen
+      - run: bash experiments/instrument_from_apk.sh https://github.com/niteshpatel/ministocks
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Fortyseven/ToneDef
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dmashuda/networkScanner
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 12
+          path: apks/
+
+  batch-13:
+    name: Build batch 13
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gustavomondron/twik
+      - run: bash experiments/instrument_from_apk.sh https://github.com/devgianlu/PretendYoureXyzzyAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/anselm94/Torchie-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fasteque/rgb-tool
+      - run: bash experiments/instrument_from_apk.sh https://github.com/RichyHBM/Monochromatic
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ITVlab/Launch-On-Boot
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nathan-osman/chronosnap
+      - run: bash experiments/instrument_from_apk.sh https://github.com/PhotoBackup/client-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/caarmen/poet-assistant
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rascarlo/ArchPackages
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ScreamingHawk/phone-saver
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dotWee/MicroPinner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/GermainZ/Identiconizer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sorz/TinyKeePass
+      - run: bash experiments/instrument_from_apk.sh https://github.com/abcdjdj/RootVerifier-APP
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bparmentier/APKShare
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Nonononoki/Hendroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/leoxshn/posidonLauncher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/phw/Android-PwdHash
+      - run: bash experiments/instrument_from_apk.sh https://github.com/k3b/toGoZip
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 13
+          path: apks/
+
+  batch-14:
+    name: Build batch 14
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Domi04151309/AlwaysOn
+      - run: bash experiments/instrument_from_apk.sh https://github.com/markusfisch/WaveLinesWallpaper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mustafa01ali/SensorsSandbox
+      - run: bash experiments/instrument_from_apk.sh https://github.com/92lleo/WhatsappWebToGo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/39aldo39/spaRSS-DecSync
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TKJElectronics/BalanduinoAndroidApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bparmentier/DNSSetter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/anthonydahanne/ReGalAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Lanchon/sigspoof-checker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/flex3r/DankChat
+      - run: bash experiments/instrument_from_apk.sh https://github.com/readrops/Readrops
+      - run: bash experiments/instrument_from_apk.sh https://github.com/devgianlu/DNSHero
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wesaphzt/privatelock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SapuSeven/BetterUntis
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-wifi-manager
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ruleant/getback_gps
+      - run: bash experiments/instrument_from_apk.sh https://github.com/freaktechnik/Webthingify
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nbenm/ImapNote2
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/UART-Smartwatch
+      - run: bash experiments/instrument_from_apk.sh https://github.com/xargsgrep/PortKnocker
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 14
+          path: apks/
+
+  batch-15:
+    name: Build batch 15
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tryton-vanmeer/LibreTrivia
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mlsoft/Trycorder5
+      - run: bash experiments/instrument_from_apk.sh https://github.com/danvratil/FBEventSync
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ChickenHook/StartFlagExploit
+      - run: bash experiments/instrument_from_apk.sh https://github.com/DeweyReed/ClipboardCleaner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/NachiketaVadera/EBookDownloader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sryze/wirebug
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gsantner/kimai-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VladThodo/behe-explorer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Voice-Recorder
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gsingh93/hacker-live-wallpaper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/raatmarien/chibe
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ScreamingHawk/android-slideshow
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/ComputationalDemonology
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Yubico/yubiclip-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/daktak/androidpn-client
+      - run: bash experiments/instrument_from_apk.sh https://github.com/seguri/lock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/niccokunzmann/mundraub-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/openintents/flashlight
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rubenroy/Minimal-Todo
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 15
+          path: apks/
+
+  batch-16:
+    name: Build batch 16
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/iamtrk/Device-Explorer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pyload/pyload-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-SMS-Messenger
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gsurrel/FacebookNotifications
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mikljohansson/retroboy
+      - run: bash experiments/instrument_from_apk.sh https://github.com/soynerdito/BlueSound
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kodejak/Hashr
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/MaterialTeaTimer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CookieJarApps/SmartCookieWeb
+      - run: bash experiments/instrument_from_apk.sh https://github.com/RyuzakiKK/NoteCrypt
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mvbasov/lWS
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Adonai/Man-Man
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Nutomic/movecerts
+      - run: bash experiments/instrument_from_apk.sh https://github.com/HackMyChurch/aelf-dailyreadings
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Utazukin/Ichaival
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jklmnn/ParkenDD
+      - run: bash experiments/instrument_from_apk.sh https://github.com/takke/DataStats
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nickdurante/Spider
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nilesr/United4
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vitSkalicky/lepsi-rozvrh
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 16
+          path: apks/
+
+  batch-17:
+    name: Build batch 17
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fi3te/NotificationCron
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Dialer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rmst/yoke-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wrmndfzzy/Atomize
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-passwordgenerator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/brarcher/baby-sleep-sounds
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kconger/org.thecongers.mtpms
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ajh3/NoSurfForReddit
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tigase/stork
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wseemann/RoMote
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Alcidauk/CineLog
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gryphius/androdns
+      - run: bash experiments/instrument_from_apk.sh https://github.com/daktak/opengapps_downloader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MartiniMoe/MIDICtrl
+      - run: bash experiments/instrument_from_apk.sh https://github.com/hacker1024/android-wifi-qr-code-generator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/subhamtyagi/openinwa
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Sav22999/common-voice-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/marcdonald/hibi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/accordion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dh4/WeatherRadar
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 17
+          path: apks/
+
+  batch-18:
+    name: Build batch 18
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/shymmq/librus-client-kotlin
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/ImageSms
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/Primary
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rignaneseleo/SlimSocial-for-Twitter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Scraper-Club/Android-Scraper-Club
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Xipher7934/NeuralNetworkSimulator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/qqq3/inventum
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/AudioMeter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/agateau/cat-avatar-generator-app
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/RickApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/KeikaiLauncher/KeikaiLauncher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cvzi/ScreenshotTile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fabienli/DokuwikiAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vmiklos/plees-tracker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/RodrigoDavy/PixelArtist
+      - run: bash experiments/instrument_from_apk.sh https://github.com/k3b/LosslessJpgCrop
+      - run: bash experiments/instrument_from_apk.sh https://github.com/abhijitvalluri/fitnotifications
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Mnkai/PGPClipper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jkennethcarino/AnkiEditor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/DecentralizedAmateurPagingNetwork/DAPNETApp
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 18
+          path: apks/
+
+  batch-19:
+    name: Build batch 19
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TheAkki/Synctool
+      - run: bash experiments/instrument_from_apk.sh https://github.com/WikiJourney/wikijourney_app
+      - run: bash experiments/instrument_from_apk.sh https://github.com/thelinuxgeekcommunity/simpleirc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fenimore/fissure-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kylecorry31/Trail-Sense
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/crossword
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Pygmalion69/OpenTopoMapViewer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-memo-game
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jpeddicord/speedofsound
+      - run: bash experiments/instrument_from_apk.sh https://github.com/0xpr03/VocableTrainer-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bobthekingofegypt/BobBall
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rnauber/pipepanic-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/RCasatta/EternityWallAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nicolasbrailo/PianOli
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rgex/UBIC-android-wallet
+      - run: bash experiments/instrument_from_apk.sh https://github.com/impalex/knockonports
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bvlj/diab
+      - run: bash experiments/instrument_from_apk.sh https://github.com/4nubhav/WhatsDeleted
+      - run: bash experiments/instrument_from_apk.sh https://github.com/marcoM32/SeaMapDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tube42/candymem
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 19
+          path: apks/
+
+  batch-20:
+    name: Build batch 20
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/renyuneyun/CamCov
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rastating/DroidBeard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yuttadhammo/BodhiTimer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/BombusMod/BombusMod
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rmtheis/android-ocr
+      - run: bash experiments/instrument_from_apk.sh https://github.com/federicoiosue/Omni-Notes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/hidroh/materialistic
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yeriomin/YalpStore
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ikarus23/MifareClassicTool
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CypherpunkArmory/UserLAnd
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mozilla-mobile/focus-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/anthonycr/Lightning-Browser
+      - run: bash experiments/instrument_from_apk.sh https://github.com/orgzly/orgzly-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fossasia/pslab-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Neamar/KISS
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jberkel/sms-backup-plus
+      - run: bash experiments/instrument_from_apk.sh https://github.com/android-password-store/Android-Password-Store
+      - run: bash experiments/instrument_from_apk.sh https://github.com/westnordost/StreetComplete
+      - run: bash experiments/instrument_from_apk.sh https://github.com/labexp/osmtracker-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/omerjerk/RemoteDroid
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 20
+          path: apks/
+
+  batch-21:
+    name: Build batch 21
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/beegee-tokyo/disaster-radio-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/richsmith/sexytopo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/devmil/PaperLaunch
+      - run: bash experiments/instrument_from_apk.sh https://github.com/caarmen/scrumchatter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/retrobits/son_of_hunkypunk
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/SeafoodBerserker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Abdallah-Abdelazim/My-Notes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/meonwax/soundboard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tvbarthel/SimpleThermometerProject
+      - run: bash experiments/instrument_from_apk.sh https://github.com/alexghr/bulkshare
+      - run: bash experiments/instrument_from_apk.sh https://github.com/basil2style/Sudoku-Pattern-Generator-App
+      - run: bash experiments/instrument_from_apk.sh https://github.com/enricocid/Storage-USB
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-ruler
+      - run: bash experiments/instrument_from_apk.sh https://github.com/johnjohndoe/CampFahrplan
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Domi04151309/Power-App-for-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zoenb/Soft-Sound
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-interval-timer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-food-tracker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MarquisLP/World-Scribe
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-dame
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 21
+          path: apks/
+
+  batch-22:
+    name: Build batch 22
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mannd/epmobile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/OSRSHelper/OSRSHelper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Perflyst/OpenUntis
+      - run: bash experiments/instrument_from_apk.sh https://github.com/JiriSko/amixer-webui-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/c4ffein/OOS-firmware-updater
+      - run: bash experiments/instrument_from_apk.sh https://github.com/s6joui/homebot
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Antonis427/veterondo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/czlee/debatekeeper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tube42/9p
+      - run: bash experiments/instrument_from_apk.sh https://github.com/daktak/xposed_downloader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/metabrainz/musicbrainz-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rubenwardy/mtmods4android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/upost/DeltaCamera
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MBach/AutoAirplaneMode
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tobihille/SeniorLauncher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Perflyst/BatteryCalibration
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zikalify/BMI_Calculator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/beriain/PolarClock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/etheremote
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ylogx/wordpowermadeeasy
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 22
+          path: apks/
+
+  batch-23:
+    name: Build batch 23
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pedja1/aLogcatRoot
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Berlin-Vegan/berlin-vegan-guide
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rigid/Birthdroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/thetwom/toc2
+      - run: bash experiments/instrument_from_apk.sh https://github.com/RailwayStations/RSAndroidApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gjedeer/Acastus
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimoneTinella/Stato_COVID19_Italia_Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tacticalDevC/PanicTrigger
+      - run: bash experiments/instrument_from_apk.sh https://github.com/x1unix/s60-icon-pack
+      - run: bash experiments/instrument_from_apk.sh https://github.com/prrt714/Kaleidoscope
+      - run: bash experiments/instrument_from_apk.sh https://github.com/h0chi/next-companion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/NotifyRelay
+      - run: bash experiments/instrument_from_apk.sh https://github.com/aidin36/simpletextcrypt
+      - run: bash experiments/instrument_from_apk.sh https://github.com/conchyliculture/wikipoff
+      - run: bash experiments/instrument_from_apk.sh https://github.com/aceventura82/AppsDisabler
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AdrienPoupa/AttestationDeplacement
+      - run: bash experiments/instrument_from_apk.sh https://github.com/theblackwidower/KanaQuiz
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mattvchandler/progressbars
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fralik/Duorem
+      - run: bash experiments/instrument_from_apk.sh https://github.com/LuK1337/SauceNAO
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 23
+          path: apks/
+
+  batch-24:
+    name: Build batch 24
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cubei/flashcards
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rascarlo/AdaptiveBrightnessTile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SubhamTyagi/night-mode-tile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sanderbaas/WeatherWidget
+      - run: bash experiments/instrument_from_apk.sh https://github.com/subins2000/manglish
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ojacquemart/vlilleChecker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/anton-arnold/xoverrideheadphonejackdetection
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nbossard/packlist
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-minesweeper
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-finance-manager
+      - run: bash experiments/instrument_from_apk.sh https://github.com/daktak/basketbuild_downloader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/marunjar/anewjkuapp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fistons/TinyTinyFeed
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zoenb/vortaro
+      - run: bash experiments/instrument_from_apk.sh https://github.com/queler/holokenmod
+      - run: bash experiments/instrument_from_apk.sh https://github.com/marc136/tonuino-nfc-tools
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tananaev/calculator-notification
+      - run: bash experiments/instrument_from_apk.sh https://github.com/thiolliere/YouTubeStream
+      - run: bash experiments/instrument_from_apk.sh https://github.com/namlit/siteswap_generator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sadr0b0t/yashlang
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 24
+          path: apks/
+
+  batch-25:
+    name: Build batch 25
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Rudloff/PaperCraft
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dasbiswajit/worldclockwidget
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Tyde/TuCanMobile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tiphedor/SMS-Spammer-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/richardchien/jigsaw-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/monakhv/samlib-Info
+      - run: bash experiments/instrument_from_apk.sh https://github.com/teamOSC/SubtleNews_Android_App
+      - run: bash experiments/instrument_from_apk.sh https://github.com/OpenTracksApp/OSMDashboard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/powerje/NyanDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/knirirr/BeeCount
+      - run: bash experiments/instrument_from_apk.sh https://github.com/starryalley/AmbitSync
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ndleyton/OneTwo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/shorty
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-dicer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ktt-ol/hacs
+      - run: bash experiments/instrument_from_apk.sh https://github.com/n76/Symphony
+      - run: bash experiments/instrument_from_apk.sh https://github.com/aario/MyWifiPasswords
+      - run: bash experiments/instrument_from_apk.sh https://github.com/hexedit/amazfit-face-replacer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/binary-kitchen/doorlock-app
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ATryder/TEdit
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 25
+          path: apks/
+
+  batch-26:
+    name: Build batch 26
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EXL/Snooder21
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zoenb/log28
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fabmazz/Timber
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Sw24Softwares/StarkeVerben
+      - run: bash experiments/instrument_from_apk.sh https://github.com/linuxtage/glt-companion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-pausing-healthily
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jselbie/wrekonline
+      - run: bash experiments/instrument_from_apk.sh https://github.com/JohnMH/BoogDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ebaschiera/TripleCamel
+      - run: bash experiments/instrument_from_apk.sh https://github.com/red-coracle/episodes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jtsalva/cloudmare
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Domi04151309/HomeApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EventInfra/wifisetup
+      - run: bash experiments/instrument_from_apk.sh https://github.com/carlphilipp/chicago-commutes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TheFakeMontyOnTheRun/knightsofalentejo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Softcatala/TraductorSoftcatalaAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/TriPeaksSolitaireForAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/adolfintel/sine-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/IthakaBoardGame
+      - run: bash experiments/instrument_from_apk.sh https://github.com/luelista/LDAP-Sync
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 26
+          path: apks/
+
+  batch-27:
+    name: Build batch 27
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/DodaTheExploda
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/FreeKlondike
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-2048
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Earthblood/Toe
+      - run: bash experiments/instrument_from_apk.sh https://github.com/hackathoner/Gradr
+      - run: bash experiments/instrument_from_apk.sh https://github.com/316k/android-tap-the-black-tiles
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fenimore/devinettes-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/phunehehe/fooCam
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vuze/vuze-remote-for-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/richardchien/clear-weather-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/TripSit/tripmobile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/JohnLines/mediclog
+      - run: bash experiments/instrument_from_apk.sh https://github.com/patrickkostjens/Kandroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fr3ts0n/StageFever
+      - run: bash experiments/instrument_from_apk.sh https://github.com/OldSparkyMI/aRevelation
+      - run: bash experiments/instrument_from_apk.sh https://github.com/YoeriNijs/NoteBuddy
+      - run: bash experiments/instrument_from_apk.sh https://github.com/csicar/MensaPlan
+      - run: bash experiments/instrument_from_apk.sh https://github.com/brarcher/rental-calc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/ViboraFeed
+      - run: bash experiments/instrument_from_apk.sh https://github.com/forrestguice/SuntimesCalendars
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 27
+          path: apks/
+
+  batch-28:
+    name: Build batch 28
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/achromaticmetaphor/agram
+      - run: bash experiments/instrument_from_apk.sh https://github.com/DamienOReilly/PrepayCredit
+      - run: bash experiments/instrument_from_apk.sh https://github.com/miguelvps/PoliteDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/renancunha33/DiolinuxApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mbmb5/Eylca
+      - run: bash experiments/instrument_from_apk.sh https://github.com/316k/android-fortune
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cryptofuture/PassCard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/igrmk/smsq
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fyreplace/fyreplace-client-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fei0316/snapstreak-alarm
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Faltenreich/Diaguard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Harvie/NorthDog
+      - run: bash experiments/instrument_from_apk.sh https://github.com/joaomneto/TitanCompanion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/DevLuuk/SleepyWifi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/alexcustos/linkasanote
+      - run: bash experiments/instrument_from_apk.sh https://github.com/devasworski/Corona-Info
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rascarlo/PowerButtonTile
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dfrits/MobilePauker2
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pot8oe/mythmote
+      - run: bash experiments/instrument_from_apk.sh https://github.com/c-base/c-beam-droid
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 28
+          path: apks/
+
+  batch-29:
+    name: Build batch 29
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/X-Ryl669/BwareArea
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SubhamTyagi/dork-explore
+      - run: bash experiments/instrument_from_apk.sh https://github.com/iexos/BipolAlarm
+      - run: bash experiments/instrument_from_apk.sh https://github.com/RinatKurmaev/Tether-companion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/chaosdorf/meteroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/NCBSinfo/NCBSinfo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/notes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zikalify/StoicReading
+      - run: bash experiments/instrument_from_apk.sh https://github.com/meyerd/funktrainer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/billthefarmer/melodeon
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mobimentum/dualsimreminder
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nishant-boro/split-it-easy-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MarcoSpoerl/simply-pace
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Stypox/mastercom-workbook
+      - run: bash experiments/instrument_from_apk.sh https://github.com/libertysoft3/RedReader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mathbellev/StdAtmosphere
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/Wortschatz
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaap/PhoneFoneFun
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ultramega/flavordex
+      - run: bash experiments/instrument_from_apk.sh https://github.com/GittyMac/MoClock
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 29
+          path: apks/
+
+  batch-30:
+    name: Build batch 30
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/WKenya/bookmarkOS
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Starcommander/StreamRadio
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-solitaire
+      - run: bash experiments/instrument_from_apk.sh https://github.com/andswitch/techahashi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/vitosha-blackjack
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ccrama/Slide
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bpellin/keepassdroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/moonlight-stream/moonlight-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/QuantumBadger/RedReader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/falnatsheh/MarkdownView
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gsantner/markor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AntonioRedondo/AnotherMonitor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/beemdevelopment/Aegis
+      - run: bash experiments/instrument_from_apk.sh https://github.com/emmaguy/clean-status-bar
+      - run: bash experiments/instrument_from_apk.sh https://github.com/erickok/transdroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/uberspot/2048-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tuskyapp/Tusky
+      - run: bash experiments/instrument_from_apk.sh https://github.com/stealthcopter/AndroidNetworkTools
+      - run: bash experiments/instrument_from_apk.sh https://github.com/matburt/mobileorg-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/heruoxin/Clip-Stack
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 30
+          path: apks/
+
+  batch-31:
+    name: Build batch 31
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pires/android-obd-reader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/google/ringdroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/00-Evan/shattered-pixel-dungeon
+      - run: bash experiments/instrument_from_apk.sh https://github.com/freeotp/freeotp-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ars3niy/openpass
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yankovskiy/SilentNight
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Eibriel/RedDot
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mateusz-szafraniec/NFCTagmaker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SmokeyMcBong/ED_Tool
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ianmcxa/ZephyrLogger
+      - run: bash experiments/instrument_from_apk.sh https://github.com/engSERGIU/React
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/FunPhonePuppet
+      - run: bash experiments/instrument_from_apk.sh https://github.com/seguri/GetForegroundActivity
+      - run: bash experiments/instrument_from_apk.sh https://github.com/luarca84/Caramelos
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sebastianrakel/fb-client-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SpEcHiDe/WhatsAppTransmitter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/crysxd/Studiportal-Checker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pla1/FediPhoto
+      - run: bash experiments/instrument_from_apk.sh https://github.com/osmontrouge/caresteouvert_android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pjuu/droidotter
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 31
+          path: apks/
+
+  batch-32:
+    name: Build batch 32
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tengel/AndroidPlanisphere
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zouroboros/filmchecker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/justdave/nwsweatheralertswidget
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CNugteren/NLWeer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/phrogg/GetMiTokens
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yacgroup/yacguide
+      - run: bash experiments/instrument_from_apk.sh https://github.com/LinDevHard/raspb-finder
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-circuit-training-exercises
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jdmonin/anstop
+      - run: bash experiments/instrument_from_apk.sh https://github.com/quaddy-services/DynamicNightLight
+      - run: bash experiments/instrument_from_apk.sh https://github.com/timo-a/SudoQ
+      - run: bash experiments/instrument_from_apk.sh https://github.com/williehwc/wonderdroid-x
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jeffisaak/diceware-pass-gen
+      - run: bash experiments/instrument_from_apk.sh https://github.com/allan-simon/verbiste-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pascalfree/calendar-color
+      - run: bash experiments/instrument_from_apk.sh https://github.com/queler/sharetobrowser
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mo3rfan/ScrollSocket
+      - run: bash experiments/instrument_from_apk.sh https://github.com/balesz/android-WebSearch
+      - run: bash experiments/instrument_from_apk.sh https://github.com/aperifons/Wa-Tor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/carts-uiet/cartsbusboarding
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 32
+          path: apks/
+
+  batch-33:
+    name: Build batch 33
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/HopEdia/android-client
+      - run: bash experiments/instrument_from_apk.sh https://github.com/urtxintxa/HexColorTime
+      - run: bash experiments/instrument_from_apk.sh https://github.com/alandais/Pointeuse_S3I
+      - run: bash experiments/instrument_from_apk.sh https://github.com/guildem/publicip-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ZiiS/huewidgets
+      - run: bash experiments/instrument_from_apk.sh https://github.com/davidar/fabularium
+      - run: bash experiments/instrument_from_apk.sh https://github.com/EmmanuelMess/Simple-Cleanup
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gbarre/xiaExpressAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/warenix/Web2PDF
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SecUSo/privacy-friendly-boardgame-clock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/hu-berlin-cms/hu-eduroam
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/HouseOfCards
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/HungarianRingsForAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MarcelJurtz/LifeCounter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dynamitetuning/com.dynamite.heaterrc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/as4565683/WordValueCalculator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/subprogram/ParanoidSmsBlocker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/corenting/ParisTransportTraffic
+      - run: bash experiments/instrument_from_apk.sh https://github.com/damiengo/WebsiteRSS
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 33
+          path: apks/
+
+  batch-34:
+    name: Build batch 34
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gkalab/scidonthego
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mathisdt/sdbviewer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/CarstenKarbach/MoTAC
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Matteljay/mastermindy-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/phrogg/BatteryCalibrator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/alxgnon/PostWriter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/no-go/HaveRadiosion
+      - run: bash experiments/instrument_from_apk.sh https://github.com/travistynes/block6
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fair-exchange/safeprice
+      - run: bash experiments/instrument_from_apk.sh https://github.com/xvello/salasana-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/BrainstonzForAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/niccokunzmann/bhagavad-gita-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/caarmen/nounours-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Webierta/ahorcandroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Renard1911/BaiApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Depau/POuLBITS-Android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/loisaidasam/mta-fare-buster-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/javierllorente/adc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Allsimon/Alldebrid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/louffoster/FlickIt
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 34
+          path: apks/
+
+  batch-35:
+    name: Build batch 35
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/uatach/reminders
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sujithkanna/TouchDetector
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cryptofuture/urlhda-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/m0ppers/ElpeEfpeAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Rudloff/lineageos-updater-shortcut
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zoff99/CampFahrplan
+      - run: bash experiments/instrument_from_apk.sh https://github.com/muojp/sync-memories
+      - run: bash experiments/instrument_from_apk.sh https://github.com/cetoolbox/cetoolbox
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sanskritbscs/memory
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zouroboros/feed-watcher
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fraygeyst/Contactbook
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vitSkalicky/klavesnice
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mkg20001/aruba-networks-login
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/android-vitosha-poker-odds
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mohamedbelhassen/YoutubeListingApp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zoff99/MetalabDoorWidget
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Amerlander/Calliope-Android-App
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VelbazhdSoftwareLLC/Kechi
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tompreuss/APNSettings
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nciric/NDFilter
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 35
+          path: apks/
+
+  batch-36:
+    name: Build batch 36
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bronydell/Android-MGKEapp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SibDev/BadPixels
+      - run: bash experiments/instrument_from_apk.sh https://github.com/grmpl/StepandHeightcounter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/seguri/IsPhoneEncrypted
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ppareit/Shutdown
+      - run: bash experiments/instrument_from_apk.sh https://github.com/scoutant/rpn
+      - run: bash experiments/instrument_from_apk.sh https://github.com/xavierfreyburger/tempus-romanum
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fossasia/badge-magic-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fossasia/neurolab-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mendhak/gpslogger
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wikimedia/apps-android-wikipedia
+      - run: bash experiments/instrument_from_apk.sh https://github.com/javiersantos/MLManager
+      - run: bash experiments/instrument_from_apk.sh https://github.com/project-travel-mate/Travel-Mate
+      - run: bash experiments/instrument_from_apk.sh https://github.com/VREMSoftwareDevelopment/WifiAnalyzer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/reicast/reicast-emulator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Etar-Group/Etar-Calendar
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Kunzisoft/KeePassDX
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ctodobom/OpenNoteScanner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dmfs/opentasks
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AChep/AcDisplay
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 36
+          path: apks/
+
+  batch-37:
+    name: Build batch 37
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/FredJul/Flym
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nikita36078/J2ME-Loader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vanilla-music/vanilla
+      - run: bash experiments/instrument_from_apk.sh https://github.com/chandevel/Clover
+      - run: bash experiments/instrument_from_apk.sh https://github.com/oliexdev/openScale
+      - run: bash experiments/instrument_from_apk.sh https://github.com/WangDaYeeeeee/Mysplash
+      - run: bash experiments/instrument_from_apk.sh https://github.com/grote/Transportr
+      - run: bash experiments/instrument_from_apk.sh https://github.com/zhanghai/MaterialFiles
+      - run: bash experiments/instrument_from_apk.sh https://github.com/meefik/busybox
+      - run: bash experiments/instrument_from_apk.sh https://github.com/barbeau/gpstest
+      - run: bash experiments/instrument_from_apk.sh https://github.com/demantz/RFAnalyzer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/deltachat/deltachat-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/martykan/forecastie
+      - run: bash experiments/instrument_from_apk.sh https://github.com/blanyal/Remindly
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/PassAndroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kontalk/androidclient
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ppareit/swiftp
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-File-Manager
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/SurvivalManual
+      - run: bash experiments/instrument_from_apk.sh https://github.com/openfoodfacts/openfoodfacts-androidapp
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 37
+          path: apks/
+
+  batch-38:
+    name: Build batch 38
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/PeterCxy/Shelter
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nextcloud/news-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/simple-last-fm-scrobbler/sls
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Music-Player
+      - run: bash experiments/instrument_from_apk.sh https://github.com/scoute-dich/browser
+      - run: bash experiments/instrument_from_apk.sh https://github.com/NightWhistler/PageTurner
+      - run: bash experiments/instrument_from_apk.sh https://github.com/markusfisch/ShaderEditor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/kollerlukas/Camera-Roll-Android-App
+      - run: bash experiments/instrument_from_apk.sh https://github.com/vector-im/riotx-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fr3ts0n/AndrOBD
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Camera
+      - run: bash experiments/instrument_from_apk.sh https://github.com/LibreShift/red-moon
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rfc2822/GfxTablet
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Swati4star/Images-to-PDF
+      - run: bash experiments/instrument_from_apk.sh https://github.com/connectbot/connectbot
+      - run: bash experiments/instrument_from_apk.sh https://github.com/julian-klode/dns66
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fossasia/open-event-attendee-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/open-keychain/open-keychain
+      - run: bash experiments/instrument_from_apk.sh https://github.com/syncthing/syncthing-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/duckduckgo/Android
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 38
+          path: apks/
+
+  batch-39:
+    name: Build batch 39
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/genonbeta/TrebleShot
+      - run: bash experiments/instrument_from_apk.sh https://github.com/traccar/traccar-client-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/openhab/openhab-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ubergeek42/weechat-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/stefan-niedermann/nextcloud-notes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sky-map-team/stardroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/enricocid/Music-Player-GO
+      - run: bash experiments/instrument_from_apk.sh https://github.com/walleth/walleth
+      - run: bash experiments/instrument_from_apk.sh https://github.com/8enet/AppOpsX
+      - run: bash experiments/instrument_from_apk.sh https://github.com/xbmc/Kore
+      - run: bash experiments/instrument_from_apk.sh https://github.com/spacecowboy/NotePad
+      - run: bash experiments/instrument_from_apk.sh https://github.com/chrisboyle/sgtpuzzles
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sismics/reader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/thermatk/FastHub-Libre
+      - run: bash experiments/instrument_from_apk.sh https://github.com/trikita/slide
+      - run: bash experiments/instrument_from_apk.sh https://github.com/pocmo/Yaaic
+      - run: bash experiments/instrument_from_apk.sh https://github.com/afollestad/nock-nock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sheimi/SGit
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fython/Blackbulb
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wallabag/android-app
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 39
+          path: apks/
+
+  batch-40:
+    name: Build batch 40
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Notes
+      - run: bash experiments/instrument_from_apk.sh https://github.com/indywidualny/FaceSlim
+      - run: bash experiments/instrument_from_apk.sh https://github.com/maxpower47/PinDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/intrications/intent-intercept
+      - run: bash experiments/instrument_from_apk.sh https://github.com/segler-alex/RadioDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Contacts
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Nilhcem/hosts-editor-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/moneymanagerex/android-money-manager-ex
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MCMrARM/revolution-irc
+      - run: bash experiments/instrument_from_apk.sh https://github.com/d4rken/reddit-android-appstore
+      - run: bash experiments/instrument_from_apk.sh https://github.com/ligi/IPFSDroid
+      - run: bash experiments/instrument_from_apk.sh https://github.com/plafue/writeily-pro
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Calculator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rkkr/simple-keyboard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AdrienPoupa/VinylMusicPlayer
+      - run: bash experiments/instrument_from_apk.sh https://github.com/adolfintel/OpenPods
+      - run: bash experiments/instrument_from_apk.sh https://github.com/stefan-niedermann/nextcloud-deck
+      - run: bash experiments/instrument_from_apk.sh https://github.com/raulhaag/MiMangaNu
+      - run: bash experiments/instrument_from_apk.sh https://github.com/theksmith/CarBusInterface
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jcarolus/android-chess
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 40
+          path: apks/
+
+  batch-41:
+    name: Build batch 41
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/y20k/transistor
+      - run: bash experiments/instrument_from_apk.sh https://github.com/f2prateek/Device-Frame-Generator
+      - run: bash experiments/instrument_from_apk.sh https://github.com/AndBible/and-bible
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wolpi/prim-ftpd
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-Draw
+      - run: bash experiments/instrument_from_apk.sh https://github.com/andstatus/andstatus
+      - run: bash experiments/instrument_from_apk.sh https://github.com/bilde2910/Hauk
+      - run: bash experiments/instrument_from_apk.sh https://github.com/mkulesh/microMathematics
+      - run: bash experiments/instrument_from_apk.sh https://github.com/eidottermihi/rpicheck
+      - run: bash experiments/instrument_from_apk.sh https://github.com/trikita/talalarmo
+      - run: bash experiments/instrument_from_apk.sh https://github.com/brarcher/video-transcoder
+      - run: bash experiments/instrument_from_apk.sh https://github.com/tvbarthel/CameraColorPicker
+      - run: bash experiments/instrument_from_apk.sh https://github.com/fennifith/Alarmio
+      - run: bash experiments/instrument_from_apk.sh https://github.com/devgianlu/Aria2App
+      - run: bash experiments/instrument_from_apk.sh https://github.com/SimpleMobileTools/Simple-CLock
+      - run: bash experiments/instrument_from_apk.sh https://github.com/MatteCarra/AccA
+      - run: bash experiments/instrument_from_apk.sh https://github.com/Dar9586/NClientV2
+      - run: bash experiments/instrument_from_apk.sh https://github.com/dslul/openboard
+      - run: bash experiments/instrument_from_apk.sh https://github.com/sschueller/peertube-android
+      - run: bash experiments/instrument_from_apk.sh https://github.com/rootkiwi/an2linuxclient
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 41
+          path: apks/
+
+  batch-42:
+    name: Build batch 42
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install older NDK and dex2jar
+        run: |
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;20.0.5594570" | grep -v = || true
+          ${ANDROID_HOME}/tools/bin/sdkmanager "ndk;21.0.6113669" | grep -v = || true
+          wget https://github.com/pxb1988/dex2jar/releases/download/2.0/dex-tools-2.0.zip -O dex2jar.zip
+          7z x dex2jar.zip
+          chmod +x dex2jar-2.0/*.sh
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./requirements.txt
+
+      - run: bash experiments/instrument_from_apk.sh https://github.com/naman14/S-Tools
+      - run: bash experiments/instrument_from_apk.sh https://github.com/gsantner/memetastic
+      - run: bash experiments/instrument_from_apk.sh https://github.com/jonasbleyl/Recurrence
+      - run: bash experiments/instrument_from_apk.sh https://github.com/yaa110/Piclice
+      - run: bash experiments/instrument_from_apk.sh https://github.com/wbaumann/SmartReceiptsLibrary
+      - run: bash experiments/instrument_from_apk.sh https://github.com/clementine-player/Android-Remote
+      - run: bash experiments/instrument_from_apk.sh https://github.com/nkanaev/bubble
+      - run: bash experiments/instrument_from_apk.sh https://github.com/darshanparajuli/LogcatReader
+      - run: bash experiments/instrument_from_apk.sh https://github.com/markusfisch/BinaryEye
+      - run: bash experiments/instrument_from_apk.sh https://github.com/termux/termux-boot
+
+      - name: Upload apk artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Apk Files 42
+          path: apks/
