@@ -12,7 +12,7 @@ COSMO is a tool that allows you to automatically instrument a gradle-based appli
 Code coverage is a measure useful to describe the degree to which the source code of a program is executed when a particular test suite runs.
 
 COSMO from source code demonstrated to work with more than 700 app over 800:
-[Experimental Results](https://github.com/H2SO4T/COSMO/actions?query=workflow%3A%22Build+apks+from+source%22)
+[Experimental Results](https://github.com/H2SO4T/COSMO/actions?query=workflow%3A%22Instrumentation+%28from+source%29%22)
 ## Works with
 
 - ```Java projects```
