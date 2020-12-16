@@ -39,10 +39,7 @@ public class EndCoverageBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String prefix = intent.getStringExtra("prefix");
-        Long tsLong = System.currentTimeMillis()/1000;
-        String ts = tsLong.toString();
-        File file = new File(context.getExternalFilesDir(null).getPath(), String.format("%s_coverage_%s.ec", prefix, ts));
+        File file = new File(context.getExternalFilesDir(null).getPath(), "coverage.ec");
         COVERAGE_FILE_PATH = file.getAbsolutePath();
         if (!file.exists()) {
             try {
@@ -51,9 +48,7 @@ public class EndCoverageBroadcast extends BroadcastReceiver {
                 Log.d(TAG, "EndCoverageBroadcast was not able to create the coverage report file", e);
             }
         }
-
         generateCoverageReport();
-
         Toast.makeText(context, "Coverage report generated in " + COVERAGE_FILE_PATH, Toast.LENGTH_LONG).show();
     }
 }

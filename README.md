@@ -43,23 +43,8 @@ to save the project and clone the repository:
 
 Now create a virtualenv, and run ```pip3 install -r requirements.txt```. Now you are able to run your instrumentation.
 
-# Usage
+# COSMO from Source: Usage
 
-## GUI
-
-In order to run COSMO using the GUI, launch the command ```python3 gui.py```.
-
-A little window will appear:
-
-![gui_start](./images/gui_start.png)
-
-Now click on ````Select Folder to Instrument```` and select the folder of you application.
-If the process ends correctly, a small green banner will appear:
-
-![gui_start](./images/gui_success.png)
-
-Otherwise the program will print in console an error indicating the problem occurred.
- 
 ## CLI 
 
 In order to run COSMO using the CLI, launch the command ```python3 cli.py <APP_PATH>```.
@@ -95,6 +80,10 @@ For the broadcast receiver to work, we have to register it in the application. W
 by inserting a `receiver` node in the manifest of the instrumented application, that
 will listen for `intent.END_COVERAGE` broadcasts and will trigger the report generation.
 
+# COSMO from APK: Usage
+
+In order to run COSMO from apk, launch the command ```python3 cli.py <APK>```.
+It works only with debug apks. 
 
 # How to run Code Coverage
 
