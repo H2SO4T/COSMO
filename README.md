@@ -18,6 +18,9 @@ COSMO from source code demonstrated to work with more than 700 apps over 800:
 COSMO from apk code demonstrated to work with 300 apps over 400:
 [Experimental Results](https://github.com/H2SO4T/COSMO/actions?query=workflow%3A%22Instrumentation+%28from+apk%29%22)
 
+
+<p align='center'><img src='./images/cosmo.jpg'></p>
+
 ## Works with
 
 - ```Java projects```
